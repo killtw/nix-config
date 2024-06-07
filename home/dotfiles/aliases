@@ -1,0 +1,98 @@
+function ls() {
+    if [ -x "$(command -v eza)" ] ; then
+        eza -bh --color=auto "$@"
+    else
+        /bin/ls "$@"
+    fi
+}
+
+function cat() {
+    if [ -x "$(command -v bat)" ] ; then
+        bat "$@"
+    else
+        /bin/cat "$@"
+    fi
+}
+
+function mk() {
+    mkdir -p "$@" && cd "$_";
+}
+
+function extract () {
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2) tar xjf $1 ;;
+            *.tar.gz) tar xzf $1 ;;
+            *.bz2) bunzip2 $1 ;;
+            *.rar) unrar e $1 ;;
+            *.gz) gunzip $1 ;;
+            *.tar) tar xf $1 ;;
+            *.tbz2) tar xjf $1 ;;
+            *.tgz) tar xzf $1 ;;
+            *.zip) unzip "$1" ;;
+            *.Z) uncompress $1 ;;
+            *.7z) 7z x $1 ;;
+            *) echo "'$1' cannot be extracted via extract()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+# Docker
+alias -- docker="nerdctl"
+alias -- dc="docker compose"
+
+function docker-cleanup {
+  EXITED=$(docker ps -q -f status=exited)
+  DANGLING=$(docker images -q -f "dangling=true")
+
+  if [ "$1" = "--dry-run" ]; then
+    echo "==> Would stop containers:"
+    echo $EXITED
+    echo "==> And images:"
+    echo $DANGLING
+  else
+    if [ -n "$EXITED" ]; then
+      docker rm -f $EXITED
+    else
+      echo "No containers to remove."
+    fi
+    if [ -n "$DANGLING" ]; then
+      docker rmi -f $DANGLING
+    else
+      echo "No images to remove."
+    fi
+  fi
+}
+
+
+# PHP
+alias -- x="composer"
+alias -- art="php artisan"
+
+function tinker() {
+    if [ -e "artisan" ] ; then
+        if [ -z "$1" ] ; then
+            while true; do php artisan tinker; done
+        else
+            php artisan tinker --execute="dd($1);"
+        fi
+    fi
+    [ -e "Rakefile" ] && bundle exec rails c
+}
+
+function migrate() {
+  [ -e "artisan" ] && php artisan migrate "$@"
+  [ -e "Rakefile" ] && bundle exec rake db:migrate "$@"
+}
+
+function rollback() {
+  [ -e "artisan" ] && php artisan migrate:rollback "$@"
+  [ -e "Rakefile" ] && bundle exec rake db:rollback "$@"
+}
+
+function phpunit {
+    [ -e "vendor/bin/phpunit" ] && vendor/bin/phpunit "$@"
+    [[ -x "$(command -v phpunit)" ]] && phpunit "$@"
+}
