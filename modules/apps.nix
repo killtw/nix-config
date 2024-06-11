@@ -33,7 +33,6 @@
 
       "adguard"
       "airbuddy"
-      "alacritty"
       "appcleaner"
       "arc"
       "dingtalk"
@@ -46,7 +45,7 @@
       "sonos"
       "spotify"
       "surge"
-      "thor"
+      # "thor"
 
       "lens"
       "phpstorm"
