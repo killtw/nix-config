@@ -20,6 +20,9 @@
           "helmfile.yaml"
         ];
       };
+      gcloud = {
+        disabled = true;
+      };
     };
   };
 }
