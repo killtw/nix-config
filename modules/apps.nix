@@ -17,9 +17,11 @@
 
     taps = [
       "homebrew/homebrew-cask"
+      "hashicorp/tap"
     ];
 
     brews = [
+      "hashicorp/tap/terraform"
     ];
 
     casks = [

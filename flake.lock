@@ -298,6 +298,22 @@
         "type": "github"
       }
     },
+    "homebrew-hashicorp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1725981774,
+        "narHash": "sha256-4RsUjTFmf9Hs/6LmxTccfn9NerXMuzkZ2sPpVIYcLUg=",
+        "owner": "hashicorp",
+        "repo": "homebrew-tap",
+        "rev": "91a9a7c03767eb0364cdefd72779745020e9c9ed",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hashicorp",
+        "repo": "homebrew-tap",
+        "type": "github"
+      }
+    },
     "nix": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -584,6 +600,7 @@
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
+        "homebrew-hashicorp": "homebrew-hashicorp",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs_4"
       }

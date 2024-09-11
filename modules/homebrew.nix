@@ -8,9 +8,10 @@
       "homebrew/homebrew-core" = inputs.homebrew-core;
       "homebrew/homebrew-cask" = inputs.homebrew-cask;
       "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
+      "hashicorp/tap" = inputs.homebrew-hashicorp;
     };
 
-    mutableTaps = false;
+    mutableTaps = true;
     autoMigrate = true;
 
     extraEnv = {

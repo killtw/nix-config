@@ -28,6 +28,10 @@
       url = "github:homebrew/homebrew-bundle";
       flake = false;
     };
+    homebrew-hashicorp = {
+      url = "github:hashicorp/homebrew-tap";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {
