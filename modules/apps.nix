@@ -16,11 +16,12 @@
     };
 
     taps = [
-      "homebrew/homebrew-cask"
       "hashicorp/tap"
+      "homebrew/homebrew-cask"
     ];
 
     brews = [
+      "bitwarden-cli"
       "hashicorp/tap/terraform"
     ];
 
@@ -35,13 +36,14 @@
 
       "adguard"
       "airbuddy"
-      "appcleaner"
+      # "appcleaner"
       "arc"
       "dingtalk"
-      "dozer"
+      # "dozer"
       "ferdium"
       "iina"
       "itsycal"
+      "jordanbaird-ice"
       "karabiner-elements"
       "raycast"
       "sonos"
