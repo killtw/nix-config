@@ -15,14 +15,11 @@
       cleanup = "zap";
     };
 
-    taps = [
-      "hashicorp/tap"
-      "homebrew/homebrew-cask"
-    ];
+    taps = [];
 
     brews = [
       "bitwarden-cli"
-      "hashicorp/tap/terraform"
+      "warrensbox/tap/tfswitch"
     ];
 
     casks = [
@@ -51,6 +48,7 @@
       "surge"
       # "thor"
 
+      "google-cloud-sdk"
       "lens"
       "phpstorm"
       "postman"

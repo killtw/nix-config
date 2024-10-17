@@ -4,12 +4,7 @@
     enableRosetta = true;
     user = "killtw";
 
-    taps = {
-      "homebrew/homebrew-core" = inputs.homebrew-core;
-      "homebrew/homebrew-cask" = inputs.homebrew-cask;
-      "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
-      "hashicorp/tap" = inputs.homebrew-hashicorp;
-    };
+    taps = {};
 
     mutableTaps = true;
     autoMigrate = true;
