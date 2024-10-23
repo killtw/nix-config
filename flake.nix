@@ -1,12 +1,11 @@
 {
-  description = "Nix configuration";
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    darwin = {
-      url = "github:LnL7/nix-darwin";
+    snowfall-lib = {
+      url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+<<<<<<< Updated upstream
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,6 +31,30 @@
       url = "github:hashicorp/homebrew-tap";
       flake = false;
     };
+=======
+  };
+
+  outputs = input:
+  let
+    lib = inputs.snowfall-lib.mkLib {
+        inherit inputs;
+        src = ./.;
+
+        snowfall = {
+          meta = {
+            name = "killtw";
+            title = "Karl Nix";
+          };
+
+          namespace = "karlnix";
+        };
+      };
+  in
+  lib.mkFlake {
+    channels-config = {
+        allowUnfree = true;
+      };
+>>>>>>> Stashed changes
   };
 
   outputs = inputs @ {

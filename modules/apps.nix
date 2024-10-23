@@ -25,7 +25,7 @@
     ];
 
     casks = [
-      "font-sauce-code-pro-nerd-font"
+      # "font-sauce-code-pro-nerd-font"
 
       "qlimagesize"
       "qlmarkdown"
@@ -35,13 +35,15 @@
 
       "adguard"
       "airbuddy"
-      "appcleaner"
+      # "appcleaner"
       "arc"
+      "bitwarden-cli"
       "dingtalk"
-      "dozer"
+      # "dozer"
       "ferdium"
       "iina"
       "itsycal"
+      "jordanbaird-ice"
       "karabiner-elements"
       "raycast"
       "sonos"
