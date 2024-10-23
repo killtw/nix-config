@@ -11,7 +11,7 @@
     enable = true;
 
     onActivation = {
-      autoUpdate = false;
+      autoUpdate = true;
       cleanup = "zap";
     };
 
@@ -23,8 +23,6 @@
     ];
 
     casks = [
-      "font-sauce-code-pro-nerd-font"
-
       "qlimagesize"
       "qlmarkdown"
       "qlstephen"
@@ -33,10 +31,7 @@
 
       "adguard"
       "airbuddy"
-      # "appcleaner"
       "arc"
-      "dingtalk"
-      # "dozer"
       "ferdium"
       "iina"
       "itsycal"
@@ -48,6 +43,7 @@
       "surge"
       # "thor"
 
+      "dingtalk"
       "google-cloud-sdk"
       "lens"
       "phpstorm"
