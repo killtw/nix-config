@@ -99,6 +99,9 @@
       set-option -g window-status-separator ""
 
       bind-key -T copy-mode-vi MouseDragEnd1Pane send -X copy-selection-and-cancel
+
+      set -gu default-command
+      set -g default-shell "$SHELL"
     '';
   };
 }

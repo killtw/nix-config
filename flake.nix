@@ -39,8 +39,8 @@
   in
   {
     darwinConfigurations = rec {
-      "KKday" = darwinSystem {
-        hostname = "KKday";
+      "mini" = darwinSystem {
+        hostname = "mini";
       };
     };
 

@@ -6,10 +6,6 @@
       cleanup = "zap";
     };
 
-    global = {
-      autoUpdate = true;
-    };
-
     taps = [
       "warrensbox/tap"
     ];

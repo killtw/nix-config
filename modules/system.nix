@@ -65,18 +65,9 @@
   security.pam.enableSudoTouchIdAuth = true;
 
   programs.zsh.enable = true;
-  # environment.shells = [
-  #     pkgs.zsh
-  # ];
 
   fonts = {
-    # will be removed after this PR is merged:
-    #   https://github.com/LnL7/nix-darwin/pull/754
-    fontDir.enable = true;
-
-    # will change to `fonts.packages` after this PR is merged:
-    #   https://github.com/LnL7/nix-darwin/pull/754
-    fonts = with pkgs; [
+    packages = with pkgs; [
       # https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/data/fonts/nerdfonts/shas.nix
       (nerdfonts.override {
         fonts = [

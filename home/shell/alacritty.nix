@@ -1,14 +1,14 @@
-{ ... }: {
+{ pkgs, ... }: {
   programs.alacritty = {
     enable = true;
 
     settings = {
-      live_config_reload = true;
+      general.live_config_reload = true;
 
       env.TERM = "xterm-256color";
 
-      shell = {
-        program = "/bin/zsh";
+      terminal.shell = {
+        program = "${pkgs.zsh}/bin/zsh";
         args = [
           "-l"
           "-c"
@@ -96,7 +96,6 @@
       };
 
       cursor.style.shape = "Beam";
-
 
       keyboard.bindings = [
         {
