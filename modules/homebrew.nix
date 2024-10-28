@@ -3,7 +3,6 @@
     enable = true;
 
     onActivation = {
-      # autoUpdate = true;
       cleanup = "zap";
     };
 
@@ -11,11 +10,13 @@
       autoUpdate = true;
     };
 
-    taps = [];
+    taps = [
+      "warrensbox/tap"
+    ];
 
     brews = [
       "bitwarden-cli"
-      "warrensbox/tap/tfswitch"
+      "tfswitch"
     ];
 
     casks = [
@@ -66,8 +67,6 @@
     enable = true;
     enableRosetta = true;
     user = username;
-
-    taps = {};
 
     mutableTaps = true;
     autoMigrate = true;
