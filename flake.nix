@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    systems.url = "github:nix-systems/default";
     devenv.url = "github:cachix/devenv";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     darwin = {
@@ -16,21 +17,15 @@
   };
 
   outputs = inputs @ {
-    self, nixpkgs, darwin, home-manager, devenv, nix-homebrew, ...
+    self, nixpkgs, darwin, home-manager, devenv, nix-homebrew, systems, ...
   }: let
-    machineConfig = {
-      system = "aarch64-darwin";
-      hostname = "KKday";
-      username = "killtw";
-    };
-    pkgs = import nixpkgs { system = machineConfig.system; };
-  in
-  {
-    darwinConfigurations = rec {
-      ${machineConfig.hostname} = darwin.lib.darwinSystem {
-        system = machineConfig.system;
+    forEachSystem = nixpkgs.lib.genAttrs (import systems);
+    pkgs = import nixpkgs { system = "aarch64-darwin"; };
+    darwinSystem = {username ? "killtw", hostname, system ? "aarch64-darwin"}:
+      darwin.lib.darwinSystem {
+        system = system;
         inherit pkgs;
-        specialArgs = { inherit inputs machineConfig; };
+        specialArgs = { inherit inputs hostname username; };
 
         modules = [
           ./modules/core.nix
@@ -41,14 +36,26 @@
           home-manager.darwinModules.home-manager (import ./modules/home-manager.nix)
         ];
       };
+  in
+  {
+    darwinConfigurations = rec {
+      "KKday" = darwinSystem {
+        hostname = "KKday";
+      };
     };
 
-    packages.${machineConfig.system}.devenv-up = self.devShells.${machineConfig.system}.default.config.procfileScript;
+    packages = forEachSystem(system: {
+      devenv-up = self.devShells.${system}.default.config.procfileScript;
+    });
 
-    devShells.${machineConfig.system}.default = devenv.lib.mkShell {
-      inherit inputs pkgs;
-      modules = [];
-    };
+    devShells = forEachSystem(system: let
+      pkgs = import nixpkgs { system = system; };
+    in {
+      default = devenv.lib.mkShell {
+        inherit inputs pkgs;
+        modules = [];
+      };
+    });
 
   };
 }

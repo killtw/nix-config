@@ -1,8 +1,4 @@
-{
-  lib,
-  machineConfig,
-  ...
-}: {
+{ lib, ... }: {
   # `programs.git` will generate the config file: ~/.config/git/config
   # to make git use this config file, `~/.gitconfig` should not exist!
   #

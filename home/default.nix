@@ -1,4 +1,4 @@
-{ machineConfig, ... }:
+{ username, ... }:
 
 {
   imports = [
@@ -7,8 +7,8 @@
   ];
 
   home = {
-    username = machineConfig.username;
-    homeDirectory = "/Users/${machineConfig.username}";
+    username = username;
+    homeDirectory = "/Users/${username}";
 
     stateVersion = "24.05";
   };
