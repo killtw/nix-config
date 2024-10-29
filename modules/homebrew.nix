@@ -6,13 +6,10 @@
       cleanup = "zap";
     };
 
-    taps = [
-      "warrensbox/tap"
-    ];
+    taps = [];
 
     brews = [
       "bitwarden-cli"
-      "tfswitch"
     ];
 
     casks = [
@@ -37,7 +34,6 @@
       # "thor"
 
       "dingtalk"
-      "google-cloud-sdk"
       "lens"
       "phpstorm"
       "postman"

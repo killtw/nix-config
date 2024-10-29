@@ -1,8 +1,5 @@
-{ username, ... }:
-
-{
+{ pkgs, username, ... }: {
   imports = [
-    ./core.nix
     ./shell
   ];
 

@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     git
-    pkgs.devenv
+    devenv
     wget
   ];
 

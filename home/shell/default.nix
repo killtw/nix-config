@@ -1,11 +1,12 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     colima
+    gnupg
+    google-cloud-sdk
+    helmfile
     kubectl
     kubernetes-helm
-    helmfile
-    eksctl
-    aws-iam-authenticator
+    tfswitch
   ];
 
   imports = [
