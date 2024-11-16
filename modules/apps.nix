@@ -39,17 +39,16 @@
       "surge"
       # "thor"
 
+      "cursor"
       "dingtalk"
       "lens"
       "phpstorm"
       "postman"
       "tableplus"
-      "visual-studio-code"
     ];
 
     masApps = {
       Bitwarden = 1352778147;
-      CodePiper = 1669959741;
       Reeder = 1529448980;
       Pages = 409201541;
       "Spark Desktop" = 6445813049;

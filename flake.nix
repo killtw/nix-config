@@ -39,8 +39,8 @@
       "mini" = darwinSystem {
         hostname = "mini";
       };
-      "KKday" = darwinSystem {
-        hostname = "KKday";
+      "longshun" = darwinSystem {
+        hostname = "longshun";
       };
     };
 
