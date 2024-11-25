@@ -39,9 +39,9 @@
       "surge"
       # "thor"
 
-      "cursor"
+      "aptakube"
       "dingtalk"
-      "lens"
+      # "lens"
       "phpstorm"
       "postman"
       "tableplus"
