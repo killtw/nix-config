@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    devenv.url = "github:cachix/devenv";
+    devbox.url = "github:jetify-com/devbox";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     darwin.url = "github:LnL7/nix-darwin";
     home-manager.url = "github:nix-community/home-manager";
@@ -14,7 +14,7 @@
   };
 
   outputs = inputs @ {
-    self, nixpkgs, darwin, home-manager, devenv, nix-homebrew, ...
+    self, nixpkgs, darwin, home-manager, nix-homebrew, ...
   }: let
     system = "aarch64-darwin";
     pkgs = import nixpkgs { system = system; };
@@ -42,13 +42,6 @@
       "longshun" = darwinSystem {
         hostname = "longshun";
       };
-    };
-
-    packages.devenv-up = self.devShells.${system}.default.config.procfileScript;
-
-    devShells.${system}.default = devenv.lib.mkShell {
-      inherit inputs pkgs;
-      modules = [];
     };
   };
 }

@@ -7,7 +7,7 @@
 
     initExtraFirst = ''
       export XDG_CACHE_HOME=~/.cache
-      export PATH=$PATH:./vendor/bin
+      export PATH=$PATH:./vendor/bin:~/bin
     '';
 
     initExtraBeforeCompInit = ''
