@@ -10,6 +10,7 @@
 
     onActivation = {
       cleanup = "zap";
+      autoUpdate = true;
     };
 
     taps = [];
@@ -36,12 +37,12 @@
       "raycast"
       "sonos"
       "spotify"
+      "steam"
       "surge"
       # "thor"
 
-      "aptakube"
       "dingtalk"
-      # "lens"
+      "lens"
       "phpstorm"
       # "postman"
       "tableplus"
@@ -54,7 +55,7 @@
       # CodePiper = 1669959741;
       Reeder = 1529448980;
       Pages = 409201541;
-      "Spark Desktop" = 6445813049;
+      # "Spark Desktop" = 6445813049;
       Keynote = 409183694;
       LINE = 539883307;
       "The Unarchiver" = 425424353;
