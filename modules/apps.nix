@@ -1,9 +1,18 @@
 { pkgs, ... }: {
-  environment.systemPackages = with pkgs; [
-    git
-    devbox
-    wget
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      git
+      devbox
+      wget
+    ];
+
+    variables = {
+      EDITOR = "vim";
+      HOMEBREW_NO_ANALYTICS = "1";
+    };
+  };
+
+  services.tailscale.enable = true;
 
   homebrew = {
     enable = true;
@@ -39,33 +48,23 @@
       "spotify"
       "steam"
       "surge"
-      # "thor"
 
       "dingtalk"
       "lens"
       "phpstorm"
-      # "postman"
       "tableplus"
-      # "visual-studio-code"
       "windsurf"
     ];
 
     masApps = {
       Bitwarden = 1352778147;
-      # CodePiper = 1669959741;
-      Reeder = 1529448980;
-      Pages = 409201541;
-      # "Spark Desktop" = 6445813049;
       Keynote = 409183694;
       LINE = 539883307;
-      "The Unarchiver" = 425424353;
-      PopClip = 445189367;
       Numbers = 409203825;
+      Pages = 409201541;
+      PopClip = 445189367;
+      Reeder = 1529448980;
+      "The Unarchiver" = 425424353;
     };
-  };
-
-  environment.variables = {
-    EDITOR = "vim";
-    HOMEBREW_NO_ANALYTICS = "1";
   };
 }

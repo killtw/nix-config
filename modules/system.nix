@@ -66,14 +66,7 @@
 
   programs.zsh.enable = true;
 
-  fonts = {
-    packages = with pkgs; [
-      # https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/data/fonts/nerdfonts/shas.nix
-      (nerdfonts.override {
-        fonts = [
-          "SourceCodePro"
-        ];
-      })
-    ];
-  };
+  fonts.packages = [
+    pkgs.nerd-fonts.sauce-code-pro
+  ];
 }

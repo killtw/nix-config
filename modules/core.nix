@@ -21,7 +21,6 @@
     #   https://github.com/NixOS/nix/issues/7273
     # "error: cannot link '/nix/store/.tmp-link-xxxxx-xxxxx' to '/nix/store/.links/xxxx': File exists"
     settings = {
-      auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
     };
 
