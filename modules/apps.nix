@@ -38,7 +38,7 @@
       "adguard"
       "airbuddy"
       "arc"
-      "ferdium"
+      # "ferdium"
       "iina"
       "itsycal"
       "jordanbaird-ice"
