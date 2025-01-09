@@ -1,7 +1,6 @@
 { ... }: {
   programs.starship = {
     enable = true;
-    enableZshIntegration = false;
 
     settings = {
       command_timeout = 10000;

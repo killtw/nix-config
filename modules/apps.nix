@@ -4,6 +4,7 @@
       git
       devbox
       wget
+      iina
     ];
 
     variables = {
@@ -29,24 +30,16 @@
     ];
 
     casks = [
-      "qlimagesize"
-      "qlmarkdown"
-      "qlstephen"
-      "quicklook-csv"
-      "quicklook-json"
-
       "adguard"
       "airbuddy"
       "arc"
       # "ferdium"
-      "iina"
       "itsycal"
       "jordanbaird-ice"
       "karabiner-elements"
       "raycast"
       "sonos"
       "spotify"
-      "steam"
       "surge"
 
       "dingtalk"

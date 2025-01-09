@@ -21,17 +21,8 @@
   programs = {
     awscli.enable = true;
     bat.enable = true;
-    eza = {
-      enable = true;
-      enableZshIntegration = false;
-    };
-    fzf = {
-      enable = true;
-      enableZshIntegration = false;
-    };
-    zoxide = {
-      enable = true;
-      enableZshIntegration = false;
-    };
+    eza.enable = true;
+    fzf.enable = true;
+    zoxide.enable = true;
   };
 }

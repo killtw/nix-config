@@ -17,25 +17,14 @@ zi lucid for \
     OMZL::key-bindings.zsh
 
 zi wait lucid for \
-    Aloxaf/fzf-tab \
-    https://github.com/junegunn/fzf/raw/master/shell/{"completion","key-bindings"}.zsh
-
-zi wait"2" lucid as"program" for \
-    has"zoxide" id-as"zoxide" atclone"zoxide init zsh > init.zsh" atpull"%atclone" src"init.zsh" nocompile'!' zdharma-continuum/null \
-    has"direnv" id-as"direnv" atclone"direnv hook zsh > init.zsh" atpull"%atclone" src"init.zsh" nocompile'!' zdharma-continuum/null
+    Aloxaf/fzf-tab
 
 zi wait"3" lucid for \
     has"colima" \
-        as"command" id-as"colima-completion" atclone"colima completion zsh > _colima" atpull"%atclone" zdharma-continuum/null \
         as"null" id-as"nerdctl" atclone"colima nerdctl install" atpull"%atclone" zdharma-continuum/null \
-        as"command" id-as"nerdctl-completion" atclone"nerdctl completion zsh > _nerdctl" atpull"%atclone" zdharma-continuum/null \
     has"kubectl" \
         OMZP::kubectl \
-        as"command" id-as"kubectl-completion" atclone"kubectl completion zsh > _kubectl" atpull"%atclone" zdharma-continuum/null \
-        as"command" id-as"helm-completion" atclone"helm completion zsh > _helm" atpull"%atclone" zdharma-continuum/null \
-        as"program" from"gh" pick"(kubectx|kubens)" ahmetb/kubectx \
-    has"eksctl" as"command" id-as"eksctl-completion" atclone"eksctl completion zsh > _eksctl" atpull"%atclone" zdharma-continuum/null \
-    has"helmfile" as"command" id-as"helmfile-completion" atclone"helmfile completion zsh > _helmfile" atpull"%atclone" zdharma-continuum/null
+        as"program" from"gh" pick"(kubectx|kubens)" ahmetb/kubectx
 
 zi wait lucid for \
     atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
@@ -45,7 +34,3 @@ zi wait lucid for \
         zsh-users/zsh-autosuggestions \
     blockf atpull"zinit creinstall -q ." \
         zsh-users/zsh-completions
-
-# Theme
-zi wait"!" lucid as"command" for \
-    id-as"starship" atclone"starship init zsh > init.zsh; starship completions zsh > _starship" atpull"%atclone" src"init.zsh" nocompile'!' zdharma-continuum/null
