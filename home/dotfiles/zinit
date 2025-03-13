@@ -30,7 +30,5 @@ zi wait lucid for \
     atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
         zdharma-continuum/fast-syntax-highlighting \
         zdharma-continuum/history-search-multi-word \
-    atload"!_zsh_autosuggest_start" \
-        zsh-users/zsh-autosuggestions \
     blockf atpull"zinit creinstall -q ." \
         zsh-users/zsh-completions

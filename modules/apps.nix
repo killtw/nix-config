@@ -13,7 +13,7 @@
     };
   };
 
-  services.tailscale.enable = true;
+  # services.tailscale.enable = true;
 
   homebrew = {
     enable = true;
@@ -37,6 +37,7 @@
       "itsycal"
       "jordanbaird-ice"
       "karabiner-elements"
+      "monitorcontrol"
       "raycast"
       "sonos"
       "spotify"
