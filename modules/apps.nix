@@ -33,7 +33,7 @@
       "adguard"
       "airbuddy"
       "arc"
-      # "ferdium"
+      "bambu-studio"
       "itsycal"
       "jordanbaird-ice"
       "karabiner-elements"
@@ -42,6 +42,7 @@
       "sonos"
       "spotify"
       "surge"
+      "thumbhost3mf"
 
       "dingtalk"
       "lens"
