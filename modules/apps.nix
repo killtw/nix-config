@@ -5,6 +5,7 @@
       devbox
       wget
       iina
+      ffmpeg
     ];
 
     variables = {
@@ -38,6 +39,7 @@
       "jordanbaird-ice"
       "karabiner-elements"
       "monitorcontrol"
+      "sony-ps-remote-play"
       "raycast"
       "sonos"
       "spotify"
@@ -46,8 +48,8 @@
 
       "dingtalk"
       "lens"
-      "phpstorm"
       "tableplus"
+      "visual-studio-code"
       "windsurf"
     ];
 
@@ -58,7 +60,7 @@
       Numbers = 409203825;
       Pages = 409201541;
       PopClip = 445189367;
-      Reeder = 1529448980;
+      # Reeder = 1529448980;
       "The Unarchiver" = 425424353;
     };
   };

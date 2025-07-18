@@ -16,21 +16,37 @@
     userEmail = "killtw@gmail.com";
 
     extraConfig = {
-      init.defaultBranch = "main";
-      push.autoSetupRemote = true;
-      pull.rebase = true;
-    };
-
-    # signing = {
-    #   key = "xxx";
-    #   signByDefault = true;
-    # };
-
-    delta = {
-      enable = true;
-      options = {
-        features = "side-by-side";
+      branch.sort = "-committerdate";
+      column.ui = "auto";
+      commit.verbose = true;
+      diff = {
+        algorithm = "histogram";
+        colorMoved = "plain";
+        mnemonicPrefix = true;
+        renames = true;
       };
+      fetch = {
+        prune = true;
+        pruneTags = true;
+        all = true;
+      };
+      init.defaultBranch = "main";
+      pull.rebase = true;
+      push = {
+        default = "simple";
+        autoSetupRemote = true;
+        followTags = true;
+      };
+      rebase = {
+        autoSquash = true;
+        autoStash = true;
+        updateRefs = true;
+      };
+      rerere = {
+        enabled = true;
+        autoupdate = true;
+      };
+      tag.sort = "version:refname";
     };
 
     aliases = {
@@ -48,6 +64,13 @@
       # aliases for submodule
       update = "submodule update --init --recursive";
       foreach = "submodule foreach";
+    };
+
+    delta = {
+      enable = true;
+      options = {
+        features = "side-by-side";
+      };
     };
 
     ignores = [
