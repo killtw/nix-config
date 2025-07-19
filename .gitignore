@@ -1,0 +1,50 @@
+# Nix build results
+result
+result-*
+
+# Nix garbage collection roots
+.gcroots
+
+# Development and testing files
+*.tmp
+*.bak
+*~
+
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary analysis and test files
+*_ANALYSIS.md
+*_TEST_REPORT.md
+*_VERIFICATION.md
+*_RESEARCH.md
+*_SUCCESS.md
+*_COMPLETE.md
+*_SUMMARY.md
