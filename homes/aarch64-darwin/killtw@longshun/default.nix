@@ -1,11 +1,17 @@
-{ config, lib, ... }:
+{ config, lib, namespace, ... }:
 
 {
-  programs = {
-    shell-config.enable = true;
-    git-config.enable = true;
-    terminal-config.enable = true;
-    user-config.enable = true;
+  killtw = {
+    suites = {
+      common.enable = true;
+    };
+
+    user = {
+      enable = true;
+      name = "killtw";
+      fullName = "Karl Li";
+      email = "killtw@gmail.com";
+    };
   };
 
   home.stateVersion = "24.05";

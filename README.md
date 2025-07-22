@@ -1,441 +1,254 @@
-# Nix Configuration with Snowfall Lib
+# 🏠 Modern Nix Configuration
 
-This repository contains my personal Nix configuration using [Snowfall Lib](https://snowfall.org/) for better organization and modularity.
+一個使用 Snowfall Lib 構建的現代化、模組化 Nix 配置系統，提供完整的開發環境配置。
 
-## Directory Structure
+## ✨ 特色
 
-```
-.
-├── flake.nix                    # Main flake configuration using Snowfall Lib
-├── systems/                    # System configurations
-│   └── aarch64-darwin/
-│       ├── mini/               # Mini system configuration
-│       └── longshun/           # Longshun system configuration
-├── homes/                      # Home Manager configurations
-│   └── aarch64-darwin/
-│       ├── killtw@mini/        # Home config for killtw on mini
-│       └── killtw@longshun/    # Home config for killtw on longshun
-├── modules/                    # Reusable modules
-│   ├── darwin/                 # Darwin-specific modules
-│   │   ├── apps/               # Applications and packages
-│   │   ├── core/               # Core system configuration
-│   │   ├── system/             # System defaults and settings
-│   │   ├── user/               # User management
-│   │   └── homebrew/           # Homebrew configuration
-│   └── home/                   # Home Manager modules
-│       ├── shell/              # Shell configuration (programs.shell-config)
-│       ├── git/                # Git configuration (programs.git-config)
-│       ├── terminal/           # Terminal applications (programs.terminal-config)
-│       └── user/               # User configuration (programs.user-config)
-├── packages/                   # Custom packages
-├── overlays/                   # Package overlays
-├── lib/                        # Custom utility functions
-└── shells/                     # Development environments
-```
+- 🧩 **模組化設計**: 每個工具都是獨立的模組，可選擇性啟用
+- 📦 **套件化配置**: 通過 suites 提供預配置的工具組合
+- 🎯 **命名空間**: 使用 `killtw` 命名空間避免衝突
+- 🔧 **易於擴展**: 標準化的模組結構，易於添加新工具
+- 📚 **完整文檔**: 詳細的使用指南和架構說明
 
-## Quick Start
+## 🚀 快速開始
 
-### First Time Setup
-
-1. **Clone this repository**:
-   ```bash
-   git clone <repository-url> ~/.config/nix
-   cd ~/.config/nix
-   ```
-
-2. **Build and switch to your system**:
-   ```bash
-   # For mini system (requires root privileges)
-   sudo darwin-rebuild switch --flake .#mini
-
-   # For longshun system
-   sudo darwin-rebuild switch --flake .#longshun
-   ```
-
-3. **Verify installation**:
-   ```bash
-   # Check that Home Manager is working
-   which eza bat fzf zoxide
-
-   # Check Homebrew integration
-   brew list
-   ```
-
-## Usage
-
-### Building Systems
-
+### 1. 克隆配置
 ```bash
-# Build mini system (dry-run)
-nix build .#darwinConfigurations.mini.system --dry-run
-
-# Build longshun system (dry-run)
-nix build .#darwinConfigurations.longshun.system --dry-run
-
-# Actual build
-nix build .#darwinConfigurations.mini.system
+git clone <this-repo> ~/.config/nix
+cd ~/.config/nix
 ```
 
-### Switching Systems
-
-```bash
-# Switch to mini configuration (requires root privileges)
-sudo darwin-rebuild switch --flake .#mini
-
-# Switch to longshun configuration
-sudo darwin-rebuild switch --flake .#longshun
-
-# Build without switching (for testing - no sudo needed)
-darwin-rebuild build --flake .#mini
-```
-
-### Home Manager (Auto-integrated)
-
-With Snowfall auto-integration, Home Manager configurations are automatically included when building Darwin systems:
-
-```bash
-# Home Manager is automatically activated with Darwin system
-darwin-rebuild switch --flake .#mini
-
-# Or build Home Manager independently
-nix build .#homeConfigurations."killtw@mini".activationPackage
-nix build .#homeConfigurations."killtw@longshun".activationPackage
-```
-
-### Module Configuration
-
-Home Manager modules use the new configuration syntax:
-
+### 2. 創建配置文件
 ```nix
-programs = {
-  shell-config.enable = true;      # Shell tools and zsh config
-  git-config.enable = true;        # Git configuration
-  terminal-config.enable = true;   # Terminal applications
-  user-config.enable = true;       # User environment
+# homes/aarch64-darwin/username@hostname/default.nix
+{ config, lib, namespace, ... }:
+{
+  ${namespace} = {
+    suites.common.enable = true;
+    user = {
+      enable = true;
+      name = "your-username";
+      fullName = "Your Full Name";
+      email = "your.email@example.com";
+    };
+  };
+  home.stateVersion = "24.05";
+}
+```
+
+### 3. 應用配置
+```bash
+# 測試構建
+nix build --dry-run .#homeConfigurations.username@hostname.activationPackage
+
+# 應用配置
+home-manager switch --flake .#username@hostname
+```
+
+## 📦 包含的工具
+
+### 🔧 開發工具 (Development)
+- **Git**: 版本控制系統
+- **Direnv**: 環境變數管理
+- **Kubectl**: Kubernetes 命令行工具
+- **Helm**: Kubernetes 套件管理
+
+### 🖥️ 系統工具 (System)
+- **Bat**: 現代化 cat 替代品，支援語法高亮
+- **Eza**: 現代化 ls 替代品，美觀的文件列表
+- **Fzf**: 強大的模糊搜尋工具
+- **Starship**: 現代化、快速的 shell prompt
+- **Zoxide**: 智能 cd 替代品，記住常用目錄
+
+### 🐚 Shell 配置
+- **Zsh**: 功能豐富的 shell，包含插件和自動補全
+
+### 💻 終端工具 (Terminal)
+- **Alacritty**: GPU 加速的現代終端模擬器
+- **Tmux**: 強大的終端多工器
+
+### ☁️ 雲端工具 (Cloud)
+- **AWS CLI**: Amazon Web Services 命令行工具
+- **GCP**: Google Cloud Platform 工具
+- **Colima**: 輕量級容器運行時
+
+## 🎯 配置方式
+
+### 基礎配置 (推薦)
+```nix
+${namespace} = {
+  suites.common.enable = true;  # 啟用基礎工具套件
+  user.enable = true;           # 啟用用戶配置
 };
 ```
 
-## Configuration Guide
-
-### Adding a New System
-
-1. **Create system configuration**:
-   ```bash
-   mkdir -p systems/aarch64-darwin/newsystem
-   ```
-
-2. **Create `systems/aarch64-darwin/newsystem/default.nix`**:
-   ```nix
-   { lib, namespace, ... }:
-   {
-     ${namespace} = {
-       apps.enable = true;
-       core.enable = true;
-       system.enable = true;
-
-       user = {
-         name = "username";
-         email = "user@example.com";
-         fullName = "Full Name";
-         uid = 501;
-         hostname = "newsystem";
-       };
-
-       homebrew = {
-         enable = true;
-         username = "username";
-       };
-     };
-   }
-   ```
-
-3. **Create corresponding Home Manager configuration**:
-   ```bash
-   mkdir -p homes/aarch64-darwin/username@newsystem
-   ```
-
-4. **Create `homes/aarch64-darwin/username@newsystem/default.nix`**:
-   ```nix
-   { config, lib, ... }:
-   {
-     programs = {
-       shell-config.enable = true;
-       git-config.enable = true;
-       terminal-config.enable = true;
-       user-config.enable = true;
-     };
-
-     home.stateVersion = "24.05";
-   }
-   ```
-
-### Customizing Modules
-
-#### Adding Homebrew Applications
-
-Edit `modules/darwin/apps/default.nix`:
-
+### 完整開發環境
 ```nix
-homebrew = {
-  # Add command-line tools
-  brews = [
-    "bitwarden-cli"
-    "your-new-tool"
-  ];
-
-  # Add GUI applications
-  casks = [
-    "existing-app"
-    "your-new-app"
-  ];
-
-  # Add Mac App Store apps
-  masApps = {
-    "App Name" = 123456789;
+${namespace} = {
+  suites = {
+    common.enable = true;       # 基礎工具
+    development.enable = true;  # 開發工具
+  };
+  user = {
+    enable = true;
+    name = "developer";
+    fullName = "Developer Name";
+    email = "dev@company.com";
   };
 };
 ```
 
-#### Customizing Shell Configuration
-
-Edit `modules/home/shell/default.nix` to add your own aliases and tools:
-
+### 自定義配置
 ```nix
-home.packages = with pkgs; [
-  bat
-  eza
-  fzf
-  zoxide
-  # Add your tools here
-  your-favorite-tool
-];
+${namespace} = {
+  suites.common = {
+    enable = true;
+    excludeModules = [ "tmux" ];  # 排除特定模組
+  };
 
-programs.zsh.initContent = ''
-  # Existing aliases...
-
-  # Add your custom aliases
-  alias myalias="your-command"
-'';
+  # 個別配置工具
+  programs = {
+    development.git = {
+      userName = "Custom Name";
+      userEmail = "custom@email.com";
+    };
+    terminal.alacritty = {
+      extraConfig = {
+        font.size = 12.0;
+        window.opacity = 0.9;
+      };
+    };
+  };
+};
 ```
 
-### Development
+## 📁 項目結構
+
+```
+.
+├── 📄 flake.nix                 # Flake 配置
+├── 📁 lib/                      # 共用函數庫
+│   ├── default.nix             # 主要函數導出
+│   └── home.nix                # Home Manager 輔助函數
+├── 📁 modules/home/             # Home Manager 模組
+│   ├── 👤 user/                # 用戶基礎配置
+│   ├── 📦 programs/            # 程式模組
+│   │   ├── development/        # 開發工具
+│   │   ├── system/             # 系統工具
+│   │   ├── shell/              # Shell 配置
+│   │   ├── terminal/           # 終端工具
+│   │   └── cloud/              # 雲端工具
+│   └── 🎁 suites/              # 套件組合
+│       ├── common/             # 基礎套件
+│       └── development/        # 開發套件
+├── 🏠 homes/                   # 用戶配置
+│   └── aarch64-darwin/
+│       ├── killtw@mini/
+│       └── killtw@longshun/
+└── 📚 docs/                    # 文檔
+    ├── ARCHITECTURE_GUIDE.md   # 架構指南
+    ├── USER_GUIDE.md          # 使用指南
+    └── QUICK_REFERENCE.md     # 快速參考
+```
+
+## 📚 文檔
+
+- 📖 [架構指南](docs/ARCHITECTURE_GUIDE.md) - 詳細的系統架構說明
+- 📘 [使用指南](docs/USER_GUIDE.md) - 完整的配置和使用教學
+- 📋 [快速參考](docs/QUICK_REFERENCE.md) - 常用命令和配置速查
+- 🛠️ [開發指南](docs/development/) - 模組開發和故障排除
+- 📊 [項目報告](docs/reports/) - 開發過程和測試報告
+
+## 🛠️ 常用命令
 
 ```bash
-# Enter development shell
-nix develop
+# 構建配置
+nix build .#homeConfigurations.username@hostname.activationPackage
 
-# Check flake
-nix flake check
+# 應用配置
+home-manager switch --flake .#username@hostname
 
-# Update flake inputs
-nix flake update
+# 測試構建
+nix build --dry-run .#homeConfigurations.username@hostname.activationPackage
 
-# Clean up old generations
-sudo nix-collect-garbage -d
-darwin-rebuild --rollback  # if needed
-```
+# 語法檢查
+nix-instantiate --parse path/to/file.nix
 
-## Troubleshooting
+# 檢查模組識別
+nix eval .#homeModules --apply builtins.attrNames
+## 🔧 故障排除
 
-### Common Issues
+### 常見問題
 
-#### Build Failures
+| 問題 | 解決方案 |
+|------|----------|
+| 模組未識別 | `git add .` 確保文件被追蹤 |
+| 構建失敗 | `nix build --show-trace` 查看詳細錯誤 |
+| 語法錯誤 | `nix-instantiate --parse` 檢查語法 |
+| 配置不生效 | 重新運行 `home-manager switch` |
 
-1. **Circular dependency errors**:
-   - Ensure Home Manager modules don't use `namespace` parameter
-   - Use standard `programs.*-config` paths instead
-
-2. **Module not found**:
-   ```bash
-   # Ensure git changes are staged
-   git add .
-
-   # Check module recognition
-   nix eval .#homeModules --apply builtins.attrNames
-   ```
-
-3. **Homebrew issues**:
-   ```bash
-   # Reset Homebrew if needed
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
-
-   # Then rebuild system
-   darwin-rebuild switch --flake .#mini
-   ```
-
-#### Performance Issues
-
-1. **Slow builds**:
-   ```bash
-   # Use binary cache
-   nix-env -iA cachix -f https://cachix.org/api/v1/install
-   cachix use nix-community
-
-   # Enable parallel building
-   echo "max-jobs = auto" >> ~/.config/nix/nix.conf
-   ```
-
-2. **Large store size**:
-   ```bash
-   # Regular cleanup
-   nix-collect-garbage -d
-   sudo nix-collect-garbage -d
-   ```
-
-### Best Practices
-
-#### Module Development
-
-1. **Avoid `namespace` in Home Manager modules**:
-   ```nix
-   # ❌ Don't do this in Home Manager modules
-   { namespace, ... }: config.${namespace}.module
-
-   # ✅ Do this instead
-   { ... }: config.programs.module-config
-   ```
-
-2. **Use standard option types**:
-   ```nix
-   # ✅ Good
-   enable = mkEnableOption "module description";
-
-   # ✅ Good
-   option = mkOption {
-     type = types.str;
-     default = "value";
-     description = "Option description";
-   };
-   ```
-
-3. **Keep modules focused**:
-   - One module per logical functionality
-   - Clear separation between Darwin and Home Manager modules
-
-#### System Management
-
-1. **Test before switching**:
-   ```bash
-   # Always test build first
-   darwin-rebuild build --flake .#mini
-
-   # Then switch if successful
-   darwin-rebuild switch --flake .#mini
-   ```
-
-2. **Regular maintenance**:
-   ```bash
-   # Weekly updates
-   nix flake update
-   darwin-rebuild switch --flake .#mini
-
-   # Monthly cleanup
-   nix-collect-garbage -d
-   sudo nix-collect-garbage -d
-   ```
-
-3. **Backup important configurations**:
-   - Keep this repository in version control
-   - Regular commits of working configurations
-   - Tag stable releases
-
-## Features
-
-- **macOS Support**: Full nix-darwin integration with Apple Silicon support
-- **Auto-Integration**: Darwin and Home Manager automatically integrated via Snowfall
-- **Home Manager**: Dotfiles and user environment management
-- **Homebrew Integration**: GUI applications via nix-homebrew with advanced features
-  - Rosetta support for x86 applications
-  - Automatic migration from existing Homebrew installations
-  - Mutable taps support
-- **Modular Design**: Clean, organized modules following Snowfall conventions
-- **Multi-System**: Support for multiple machines (mini, longshun)
-- **Shell Configuration**: Zsh with modern tools (eza, bat, fzf, zoxide)
-- **Development Tools**: Git, terminal applications, and development environments
-
-## Technical Details
-
-### Snowfall Auto-Integration
-
-This configuration leverages Snowfall's automatic integration feature:
-
-- **Naming Convention**: `homes/aarch64-darwin/user@host/` automatically matches `systems/aarch64-darwin/host/`
-- **Unified Build**: Single `darwin-rebuild` command manages both system and user configurations
-- **No Circular Dependencies**: Home Manager modules use standard option paths to avoid conflicts
-
-### Module Architecture
-
-#### Darwin Modules (`modules/darwin/`)
-- **apps**: Application installation via Homebrew
-- **core**: Essential system packages and configuration
-- **system**: macOS system defaults and preferences
-- **user**: User account management and system-level user settings
-- **homebrew**: nix-homebrew configuration with advanced features
-
-#### Home Manager Modules (`modules/home/`)
-- **shell**: Zsh configuration with modern CLI tools
-- **git**: Git configuration and aliases
-- **terminal**: Terminal applications (Alacritty, etc.)
-- **user**: User environment and Home Manager settings
-
-### Key Technologies
-
-- **[Snowfall Lib](https://snowfall.org/)**: Flake organization and auto-integration
-- **[nix-darwin](https://github.com/LnL7/nix-darwin)**: macOS system management
-- **[Home Manager](https://github.com/nix-community/home-manager)**: User environment management
-- **[nix-homebrew](https://github.com/zhaofengli-wip/nix-homebrew)**: Advanced Homebrew integration
-
-## References
-
-### Documentation
-- [Snowfall Lib Documentation](https://snowfall.org/guides/lib/)
-- [nix-darwin Manual](https://daiderd.com/nix-darwin/manual/)
-- [Home Manager Manual](https://nix-community.github.io/home-manager/)
-- [Nix Language Basics](https://nixos.org/manual/nix/stable/language/)
-
-### Useful Commands
+### 調試命令
 ```bash
-# Show all available outputs
-nix flake show
+# 檢查模組識別
+nix eval .#homeModules --apply builtins.attrNames
 
-# Evaluate specific configuration
-nix eval .#darwinConfigurations.mini.config.networking.hostName
+# 檢查配置
+nix eval .#homeConfigurations.username@hostname.config
 
-# Check what will be built
-nix build .#darwinConfigurations.mini.system --dry-run
-
-# Show system generations
-darwin-rebuild --list-generations
-
-# Rollback to previous generation
-darwin-rebuild --rollback
+# 顯示詳細錯誤
+nix build --show-trace .#homeConfigurations.username@hostname.activationPackage
 ```
 
-### Community Resources
-- [Nix Community Discord](https://discord.gg/RbvHtGa)
+## 🎯 最佳實踐
+
+### ✅ 推薦做法
+- 使用 suites 而非個別模組
+- 保持配置簡潔明瞭
+- 定期測試和備份配置
+- 使用版本控制管理變更
+
+### ❌ 避免做法
+- 直接修改模組文件
+- 忽略語法檢查和測試
+- 過度複雜的配置結構
+
+## 🚀 進階用法
+
+### 添加新模組
+1. 創建模組目錄和文件
+2. 使用標準選項模板
+3. 添加到相關 suite
+4. 測試和提交變更
+
+### 自定義配置
+```nix
+# 環境特定配置
+${namespace}.programs.development.git = {
+  userName = lib.mkIf (config.networking.hostName == "work-laptop") "Work Name";
+  userEmail = lib.mkIf (config.networking.hostName == "work-laptop") "work@company.com";
+};
+```
+
+## 📚 相關資源
+
+### 官方文檔
+- [Nix 官方文檔](https://nixos.org/manual/nix/stable/)
+- [Home Manager 文檔](https://nix-community.github.io/home-manager/)
+- [Snowfall Lib 指南](https://snowfall.org/guides/lib/)
+
+### 社群資源
 - [NixOS Discourse](https://discourse.nixos.org/)
-- [Awesome Nix](https://github.com/nix-community/awesome-nix)
-- [Nix Pills](https://nixos.org/guides/nix-pills/)
+- [Nix Community](https://github.com/nix-community)
+- [r/NixOS](https://www.reddit.com/r/NixOS/)
 
-## Acknowledgments
+## 🙏 致謝
 
-Special thanks to the following projects and contributors that made this configuration possible:
+感謝以下項目和貢獻者：
 
-### 🙏 **[khanelinix](https://github.com/khaneliman/khanelinix)**
-This configuration was heavily inspired by and learned from the excellent khanelinix project by [@khaneliman](https://github.com/khaneliman). Key insights adopted:
+- **[Snowfall Lib](https://snowfall.org/)** - 優秀的 Flake 組織框架
+- **[Home Manager](https://github.com/nix-community/home-manager)** - 用戶環境管理
+- **Nix 社群** - 持續的貢獻和支援
 
-- **Snowfall Auto-Integration Pattern**: The successful implementation of Darwin + Home Manager auto-integration
-- **Module Architecture**: Clean separation and organization of Darwin vs Home Manager modules
-- **Parameter Structure**: The simplified `{ config, lib, namespace, ... }` pattern that avoids circular dependencies
-- **Configuration Conventions**: Best practices for Snowfall-based configurations
+---
 
-The khanelinix project served as a crucial reference for solving complex technical challenges, particularly the circular dependency issues that can arise in Snowfall auto-integration environments.
-
-### 🛠️ **Core Technologies**
-- **[Snowfall Lib](https://snowfall.org/)** - For excellent flake organization and auto-integration capabilities
-- **[nix-darwin](https://github.com/LnL7/nix-darwin)** - For comprehensive macOS system management
-- **[Home Manager](https://github.com/nix-community/home-manager)** - For user environment and dotfiles management
-- **[nix-homebrew](https://github.com/zhaofengli-wip/nix-homebrew)** - For advanced Homebrew integration with Rosetta support
-
-### 🌟 **Community**
-Thanks to the broader Nix community for their continuous contributions, documentation, and support that make projects like this possible.
+💡 **提示**: 這是一個現代化的 Nix 配置系統，專為提供簡潔、強大、易維護的開發環境而設計。如需詳細說明，請參考相關文檔。

@@ -41,10 +41,10 @@ Temporary Items
 *.swo
 
 # Temporary analysis and test files
-*_ANALYSIS.md
-*_TEST_REPORT.md
-*_VERIFICATION.md
-*_RESEARCH.md
-*_SUCCESS.md
-*_COMPLETE.md
-*_SUMMARY.md
+*ANALYSIS*.md
+*TEST*.md
+*VERIFICATION*.md
+*RESEARCH*.md
+*SUCCESS*.md
+*COMPLETE*.md
+*SUMMARY*.md
