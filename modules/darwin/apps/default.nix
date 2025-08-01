@@ -61,7 +61,6 @@ in
         "thumbhost3mf"
 
         "dingtalk"
-        "kiro"
         "lens"
         "tableplus"
         "visual-studio-code"
