@@ -9,26 +9,34 @@ let
 in
 {
   options.${namespace}.apps = {
-    enable = mkBoolOpt false "Whether to enable applications configuration.";
+    enable = mkBoolOpt true "Whether to enable applications configuration.";
+
+    # Additional Homebrew configuration
+    extraTaps = mkListOpt types.str [] "Additional Homebrew taps to add";
+    extraBrews = mkListOpt types.str [] "Additional Homebrew brews to install";
+    extraCasks = mkListOpt types.str [] "Additional Homebrew casks to install";
+    extraMasApps = mkAttrsOpt {} "Additional Mac App Store applications to install";
+
+    # Additional system packages
+    extraPackages = mkListOpt types.package [] "Additional system packages to install";
   };
 
   config = mkIf cfg.enable {
     environment = {
       systemPackages = with pkgs; [
-        git
+        # Core system packages
         devbox
-        wget
-        iina
         ffmpeg
-      ];
+        git
+        iina
+        wget
+      ] ++ cfg.extraPackages;
 
       variables = {
         EDITOR = "vim";
         HOMEBREW_NO_ANALYTICS = "1";
       };
     };
-
-    # services.tailscale.enable = true;
 
     homebrew = {
       enable = true;
@@ -38,45 +46,51 @@ in
         autoUpdate = true;
       };
 
-      taps = [];
+      taps = [] ++ cfg.extraTaps;
 
       brews = [
         "bitwarden-cli"
-      ];
+      ] ++ cfg.extraBrews;
 
       casks = [
+        # Development
+        "visual-studio-code"
+        "tableplus"
+        "lens"
+
+        # Productivity
+        "arc"
+        "raycast"
+
+        # Media
+        "spotify"
+        "sonos"
+
+        # System
         "adguard"
         "airbuddy"
-        "arc"
-        "bambu-studio"
-        "itsycal"
+        "betterdisplay"
         "jordanbaird-ice"
-        "karabiner-elements"
-        "monitorcontrol"
-        "sony-ps-remote-play"
-        "raycast"
-        "sonos"
-        "spotify"
         "surge"
-        "thumbhost3mf"
 
+        # Communication
         "dingtalk"
-        "lens"
-        "tableplus"
-        "visual-studio-code"
-        # "windsurf"
-      ];
+      ] ++ cfg.extraCasks;
 
       masApps = {
+        # Productivity
         Bitwarden = 1352778147;
         Keynote = 409183694;
-        LINE = 539883307;
         Numbers = 409203825;
         Pages = 409201541;
         PopClip = 445189367;
-        # Reeder = 1529448980;
         "The Unarchiver" = 425424353;
-      };
+
+        # Communication
+        LINE = 539883307;
+      } // cfg.extraMasApps;
     };
   };
+
+
 }

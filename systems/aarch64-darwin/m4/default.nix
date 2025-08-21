@@ -21,12 +21,26 @@
 }: {
   # Enable Snowfall modules
   ${namespace} = {
+    apps = {
+      extraCasks = [
+        "itsycal"
+        "karabiner-elements"
+
+        # Creative
+        "bambu-studio"
+        "thumbhost3mf"
+
+        # Gaming
+        "sony-ps-remote-play"
+      ];
+    };
+
     user = {
       name = "killtw";
       email = "killtw@gmail.com";
       fullName = "Karl Li";
       uid = 501;
-      hostname = "longshun";
+      hostname = "mini";
     };
   };
 }

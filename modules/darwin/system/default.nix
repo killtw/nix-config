@@ -9,7 +9,7 @@ let
 in
 {
   options.${namespace}.system = {
-    enable = mkBoolOpt false "Whether to enable system configuration.";
+    enable = mkBoolOpt true "Whether to enable system configuration.";
   };
 
   config = mkIf cfg.enable {

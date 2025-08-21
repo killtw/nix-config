@@ -9,7 +9,7 @@ let
 in
 {
   options.${namespace}.homebrew = {
-    enable = mkBoolOpt false "Whether to enable Homebrew configuration.";
+    enable = mkBoolOpt true "Whether to enable Homebrew configuration.";
     username = mkStrOpt "killtw" "The username for nix-homebrew.";
   };
 

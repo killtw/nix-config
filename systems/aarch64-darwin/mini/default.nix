@@ -21,23 +21,27 @@
 }: {
   # Enable Snowfall modules
   ${namespace} = {
-    apps.enable = true;
-    core.enable = true;
-    system.enable = true;
+    apps = {
+      extraCasks = [
+        # System
+        "itsycal"
+        "karabiner-elements"
+
+        # Creative
+        "bambu-studio"
+        "thumbhost3mf"
+
+        # Gaming
+        "sony-ps-remote-play"
+      ];
+    };
 
     user = {
       name = "killtw";
       email = "killtw@gmail.com";
       fullName = "Karl Li";
       uid = 501;
-      hostname = "mini";
-    };
-
-    homebrew = {
-      enable = true;
-      username = "killtw";
+      hostname = "m4";
     };
   };
-
-
 }

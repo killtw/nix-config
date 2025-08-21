@@ -146,4 +146,6 @@ with lib;
   # Helper to get package with fallback
   mkPackageWithFallback = cfg: fallbackPackage:
     if cfg.package != null then cfg.package else fallbackPackage;
+
+
 }
