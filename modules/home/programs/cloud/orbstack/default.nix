@@ -60,12 +60,12 @@ in
     # Add to your systems/<arch>/<hostname>/default.nix:
     #
     # killtw.apps = {
-    #   extraCasks = [ "orbstack" ];
-    #   extraBrews = [ "orbstack" ];
+    #   extraCasks = [ "orbstack" ];  # This includes both GUI and CLI
     # };
     #
     # CLI paths:
-    #    - Homebrew: /opt/homebrew/bin/orb (Apple Silicon) or /usr/local/bin/orb (Intel)
+    #    - Homebrew cask: /opt/homebrew/bin/orb (symlink to app bundle)
+    #    - Direct app path: /Applications/OrbStack.app/Contents/MacOS/bin/orb
     #    - Manual: /Applications/OrbStack.app/Contents/Resources/bin/orb
 
     # Auto-start configuration using launchd
@@ -96,12 +96,16 @@ in
 
         # Function to find OrbStack CLI
         find_orb_cli() {
-          # Check Homebrew paths first (most common)
+          # Check Homebrew symlinks first (created by cask installation)
           if [ -f "/opt/homebrew/bin/orb" ]; then
             echo "/opt/homebrew/bin/orb"
             return 0
           elif [ -f "/usr/local/bin/orb" ]; then
             echo "/usr/local/bin/orb"
+            return 0
+          # Check Homebrew cask direct path
+          elif [ -f "/Applications/OrbStack.app/Contents/MacOS/bin/orb" ]; then
+            echo "/Applications/OrbStack.app/Contents/MacOS/bin/orb"
             return 0
           # Check manual installation path
           elif [ -f "/Applications/OrbStack.app/Contents/Resources/bin/orb" ]; then
@@ -123,7 +127,6 @@ in
           echo "   Add to your systems/<arch>/<hostname>/default.nix:"
           echo "   killtw.apps = {"
           echo "     extraCasks = [ \"orbstack\" ];"
-          echo "     extraBrews = [ \"orbstack\" ];"
           echo "   };"
           echo ""
           echo "   Then run: sudo nix run nix-darwin -- switch --flake ~/.config/nix"
@@ -184,15 +187,22 @@ in
 
         # Function to find OrbStack CLI (same as init script)
         find_orb_cli() {
+          # Check Homebrew symlinks first (created by cask installation)
           if [ -f "/opt/homebrew/bin/orb" ]; then
             echo "/opt/homebrew/bin/orb"
             return 0
           elif [ -f "/usr/local/bin/orb" ]; then
             echo "/usr/local/bin/orb"
             return 0
+          # Check Homebrew cask direct path
+          elif [ -f "/Applications/OrbStack.app/Contents/MacOS/bin/orb" ]; then
+            echo "/Applications/OrbStack.app/Contents/MacOS/bin/orb"
+            return 0
+          # Check manual installation path
           elif [ -f "/Applications/OrbStack.app/Contents/Resources/bin/orb" ]; then
             echo "/Applications/OrbStack.app/Contents/Resources/bin/orb"
             return 0
+          # Check if orb is in PATH
           elif command -v orb >/dev/null 2>&1; then
             which orb
             return 0
@@ -208,7 +218,6 @@ in
           echo "   Add to your systems/<arch>/<hostname>/default.nix:"
           echo "   killtw.apps = {"
           echo "     extraCasks = [ \"orbstack\" ];"
-          echo "     extraBrews = [ \"orbstack\" ];"
           echo "   };"
           echo ""
           echo "   Then run: sudo nix run nix-darwin -- switch --flake ~/.config/nix"

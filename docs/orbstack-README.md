@@ -159,8 +159,7 @@ OrbStack 的一大優勢是自動資源管理：
 ```nix
 {
   killtw.apps = {
-    extraCasks = [ "orbstack" ];
-    extraBrews = [ "orbstack" ];
+    extraCasks = [ "orbstack" ];  # 包含 GUI 和 CLI
   };
 }
 ```

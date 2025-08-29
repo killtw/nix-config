@@ -39,8 +39,7 @@
 # 1. 安裝 OrbStack（聲明式管理）：
 #    在您的 systems/<arch>/<hostname>/default.nix 中添加：
 #    killtw.apps = {
-#      extraCasks = [ "orbstack" ];
-#      extraBrews = [ "orbstack" ];
+#      extraCasks = [ "orbstack" ];  # 包含 GUI 和 CLI
 #    };
 #    然後執行: sudo nix run nix-darwin -- switch --flake ~/.config/nix
 #

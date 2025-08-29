@@ -21,26 +21,26 @@
     apps = {
       # 基本應用程式啟用
       enable = true;
-      
+
       # 添加 OrbStack 相關的 Homebrew 套件
       extraCasks = [
-        "orbstack"  # OrbStack 應用程式（GUI）
-        
+        "orbstack"  # OrbStack 應用程式（包含 GUI 和 CLI）
+
         # 其他您需要的應用程式
         # "docker"  # 如果您不使用 OrbStack，可以安裝 Docker Desktop
         # "postman"
         # "visual-studio-code"
       ];
-      
+
       extraBrews = [
-        "orbstack"  # OrbStack CLI 工具
-        
+        # OrbStack CLI 已包含在 cask 中，無需單獨安裝
+
         # 其他您需要的命令列工具
         # "htop"
         # "tree"
         # "jq"
       ];
-      
+
       # 可選：Mac App Store 應用程式
       extraMasApps = {
         # "Xcode" = 497799835;

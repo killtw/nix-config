@@ -22,9 +22,6 @@
   # Enable Snowfall modules
   ${namespace} = {
     apps = {
-      extraBrews = [
-        "orbstack"
-      ];
       extraCasks = [
         # System
         "itsycal"
