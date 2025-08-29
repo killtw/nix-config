@@ -14,6 +14,7 @@ let
     "awscli"
     "gcp"
     "colima"
+    "podman"
   ];
 in
 {
@@ -42,6 +43,10 @@ in
         };
 
         colima = mkIf (elem "colima" (subtractLists cfg.excludeModules cfg.modules)) {
+          enable = true;
+        };
+
+        podman = mkIf (elem "podman" (subtractLists cfg.excludeModules cfg.modules)) {
           enable = true;
         };
       };

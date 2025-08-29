@@ -41,7 +41,7 @@
       email = "killtw@gmail.com";
       fullName = "Karl Li";
       uid = 501;
-      hostname = "m4";
+      hostname = "mini";
     };
   };
 }
