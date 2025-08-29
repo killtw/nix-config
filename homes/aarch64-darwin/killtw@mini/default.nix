@@ -29,6 +29,7 @@
       enable = true;
       autoStart = true;
       enableDockerCompose = false;
+      rootless = false;
     };
   };
 

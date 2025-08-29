@@ -15,6 +15,7 @@ let
     "gcp"
     "colima"
     "podman"
+    "orbstack"
   ];
 in
 {
@@ -38,15 +39,11 @@ in
           enable = true;
         };
 
-        gcp = mkIf (elem "gcp" (subtractLists cfg.excludeModules cfg.modules)) {
-          enable = true;
-        };
-
         colima = mkIf (elem "colima" (subtractLists cfg.excludeModules cfg.modules)) {
           enable = true;
         };
 
-        podman = mkIf (elem "podman" (subtractLists cfg.excludeModules cfg.modules)) {
+        orbstack = mkIf (elem "orbstack" (subtractLists cfg.excludeModules cfg.modules)) {
           enable = true;
         };
       };
