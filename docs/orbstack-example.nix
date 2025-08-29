@@ -6,20 +6,23 @@
   killtw.programs.cloud.orbstack = {
     enable = true;
     autoStart = true;  # 開機自動啟動 OrbStack
-    
+
+    # 安裝方式配置（僅影響 CLI 路徑檢測）
+    installMethod = "homebrew";    # 安裝方式：homebrew 或 manual
+
     # 資源配置提示（OrbStack 會自動管理，這些是建議值）
     cpu = 4;      # CPU 核心數提示（0 = 自動）
     memory = 8;   # 記憶體 GB 提示（0 = 自動）
     disk = 100;   # 磁碟空間 GB 提示（0 = 自動）
-    
+
     # 功能啟用
     enableDocker = true;           # 啟用 Docker 相容性
     enableDockerCompose = true;    # 啟用 Docker Compose
     enableKubernetes = false;      # 啟用 Kubernetes 支援
-    
+
     # Docker socket 配置
     dockerSocket = "/var/run/docker.sock";  # Docker socket 路徑
-    
+
     # 自定義別名
     aliases = {
       dps = "docker ps";
@@ -33,9 +36,17 @@
 
 # 使用方式：
 #
-# 1. 啟用配置後，OrbStack 會在開機時自動啟動
-# 2. 提供完整的 Docker API 相容性
-# 3. 支援所有標準的 Docker 和 Docker Compose 命令
+# 1. 安裝 OrbStack（聲明式管理）：
+#    在您的 systems/<arch>/<hostname>/default.nix 中添加：
+#    killtw.apps = {
+#      extraCasks = [ "orbstack" ];
+#      extraBrews = [ "orbstack" ];
+#    };
+#    然後執行: sudo nix run nix-darwin -- switch --flake ~/.config/nix
+#
+# 2. 啟用配置後，OrbStack 會在開機時自動啟動
+# 3. 提供完整的 Docker API 相容性
+# 4. 支援所有標準的 Docker 和 Docker Compose 命令
 #
 # 管理命令：
 # - orbstack-status: 查看 OrbStack 和容器狀態

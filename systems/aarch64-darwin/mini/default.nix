@@ -22,6 +22,9 @@
   # Enable Snowfall modules
   ${namespace} = {
     apps = {
+      extraBrews = [
+        "orbstack"
+      ];
       extraCasks = [
         # System
         "itsycal"
@@ -33,6 +36,8 @@
 
         # Gaming
         "sony-ps-remote-play"
+
+        "orbstack"
       ];
     };
 

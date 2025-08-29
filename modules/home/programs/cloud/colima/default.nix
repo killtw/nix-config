@@ -17,7 +17,7 @@ in
     memory = mkIntOpt 4 "Memory in GB";
     disk = mkIntOpt 60 "Disk size in GB";
 
-    runtime = mkEnumOpt [ "docker" "containerd" ] "containerd" "Container runtime";
+    runtime = mkEnumOpt [ "docker" "containerd" ] "docker" "Container runtime";
 
     autoStart = mkBoolOpt false "Auto start Colima on login";
 
@@ -62,6 +62,10 @@ in
 
     home.packages = [
       (mkPackageWithFallback cfg pkgs.colima)
+    ] ++ mkConditionalPackages cfg.enableDocker [
+      pkgs.docker
+    ] ++ mkConditionalPackages cfg.enableDockerCompose [
+      pkgs.docker-compose
     ];
 
     # Auto-start configuration using launchd
@@ -199,8 +203,8 @@ EOF
             --name watchtower \
             --restart unless-stopped \
             -v /var/run/docker.sock:/var/run/docker.sock \
-            ${concatStringsSep " \\\n            " watchtowerArgs} \
-            containrrr/watchtower
+            containrrr/watchtower \
+            ${concatStringsSep " \\\n            " watchtowerArgs}
         fi
 
         echo "Watchtower started successfully"
@@ -296,7 +300,8 @@ EOF
 
     # Shell aliases
     programs.zsh.shellAliases = mkIf config.programs.zsh.enable (cfg.aliases // {
-      docker = mkIf cfg.enableDocker "nerdctl";
+      # Only alias docker to nerdctl when using containerd runtime
+      docker = mkIf (cfg.enableDocker && cfg.runtime == "containerd") "nerdctl";
       dc = mkIf cfg.enableDockerCompose "docker compose";
     } // optionalAttrs cfg.watchtower.enable {
       watchtower-status = "~/.local/bin/watchtower-status.sh";

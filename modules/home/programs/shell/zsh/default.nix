@@ -146,10 +146,6 @@ in
             fi
         }
 
-        # Docker
-        alias -- docker="nerdctl"
-        alias -- dc="docker compose"
-
         function docker-cleanup {
           EXITED=$(docker ps -q -f status=exited)
           DANGLING=$(docker images -q -f "dangling=true")

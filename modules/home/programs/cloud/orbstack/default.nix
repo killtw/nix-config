@@ -13,6 +13,9 @@ in
     enableDocker = mkBoolOpt true "Enable Docker compatibility";
     enableDockerCompose = mkBoolOpt true "Enable Docker Compose";
 
+    # Installation method (for documentation and path detection only)
+    installMethod = mkEnumOpt [ "homebrew" "manual" ] "homebrew" "Installation method for OrbStack (affects CLI path detection)";
+
     # Resource configuration (OrbStack manages these automatically but we can provide hints)
     cpu = mkIntOpt 0 "CPU cores hint (0 = auto)";
     memory = mkIntOpt 0 "Memory in GB hint (0 = auto)";
@@ -53,9 +56,17 @@ in
       pkgs.docker-compose
     ];
 
-    # Note: OrbStack CLI is not available in nixpkgs
-    # Users need to install OrbStack from the App Store or official website
-    # The CLI will be available at /Applications/OrbStack.app/Contents/Resources/bin/orb
+    # Note: OrbStack installation should be managed declaratively via Nix
+    # Add to your systems/<arch>/<hostname>/default.nix:
+    #
+    # killtw.apps = {
+    #   extraCasks = [ "orbstack" ];
+    #   extraBrews = [ "orbstack" ];
+    # };
+    #
+    # CLI paths:
+    #    - Homebrew: /opt/homebrew/bin/orb (Apple Silicon) or /usr/local/bin/orb (Intel)
+    #    - Manual: /Applications/OrbStack.app/Contents/Resources/bin/orb
 
     # Auto-start configuration using launchd
     launchd.agents.orbstack = mkIf cfg.autoStart {
@@ -83,16 +94,47 @@ in
 
         echo "🚀 Initializing OrbStack..."
 
-        # Check if OrbStack is installed
-        ORB_CLI="/Applications/OrbStack.app/Contents/Resources/bin/orb"
-        if [ ! -f "$ORB_CLI" ]; then
-          echo "❌ OrbStack not found. Please install OrbStack from:"
-          echo "   https://orbstack.dev or the Mac App Store"
+        # Function to find OrbStack CLI
+        find_orb_cli() {
+          # Check Homebrew paths first (most common)
+          if [ -f "/opt/homebrew/bin/orb" ]; then
+            echo "/opt/homebrew/bin/orb"
+            return 0
+          elif [ -f "/usr/local/bin/orb" ]; then
+            echo "/usr/local/bin/orb"
+            return 0
+          # Check manual installation path
+          elif [ -f "/Applications/OrbStack.app/Contents/Resources/bin/orb" ]; then
+            echo "/Applications/OrbStack.app/Contents/Resources/bin/orb"
+            return 0
+          # Check if orb is in PATH
+          elif command -v orb >/dev/null 2>&1; then
+            which orb
+            return 0
+          else
+            return 1
+          fi
+        }
+
+        # Find OrbStack CLI
+        ORB_CLI=$(find_orb_cli)
+        if [ $? -ne 0 ]; then
+          echo "❌ OrbStack CLI not found. Please install OrbStack declaratively:"
+          echo "   Add to your systems/<arch>/<hostname>/default.nix:"
+          echo "   killtw.apps = {"
+          echo "     extraCasks = [ \"orbstack\" ];"
+          echo "     extraBrews = [ \"orbstack\" ];"
+          echo "   };"
+          echo ""
+          echo "   Then run: sudo nix run nix-darwin -- switch --flake ~/.config/nix"
           exit 1
         fi
 
-        # Add OrbStack CLI to PATH for this session
-        export PATH="/Applications/OrbStack.app/Contents/Resources/bin:$PATH"
+        echo "✅ Found OrbStack CLI at: $ORB_CLI"
+
+        # Add OrbStack CLI directory to PATH for this session
+        ORB_DIR=$(dirname "$ORB_CLI")
+        export PATH="$ORB_DIR:$PATH"
 
         # Start OrbStack if not running
         if ! orb status >/dev/null 2>&1; then
@@ -140,15 +182,42 @@ in
         echo "========================"
         echo ""
 
-        # Check if OrbStack CLI is available
-        ORB_CLI="/Applications/OrbStack.app/Contents/Resources/bin/orb"
-        if [ ! -f "$ORB_CLI" ]; then
-          echo "❌ OrbStack not found. Please install from https://orbstack.dev"
+        # Function to find OrbStack CLI (same as init script)
+        find_orb_cli() {
+          if [ -f "/opt/homebrew/bin/orb" ]; then
+            echo "/opt/homebrew/bin/orb"
+            return 0
+          elif [ -f "/usr/local/bin/orb" ]; then
+            echo "/usr/local/bin/orb"
+            return 0
+          elif [ -f "/Applications/OrbStack.app/Contents/Resources/bin/orb" ]; then
+            echo "/Applications/OrbStack.app/Contents/Resources/bin/orb"
+            return 0
+          elif command -v orb >/dev/null 2>&1; then
+            which orb
+            return 0
+          else
+            return 1
+          fi
+        }
+
+        # Find OrbStack CLI
+        ORB_CLI=$(find_orb_cli)
+        if [ $? -ne 0 ]; then
+          echo "❌ OrbStack CLI not found. Please install OrbStack declaratively:"
+          echo "   Add to your systems/<arch>/<hostname>/default.nix:"
+          echo "   killtw.apps = {"
+          echo "     extraCasks = [ \"orbstack\" ];"
+          echo "     extraBrews = [ \"orbstack\" ];"
+          echo "   };"
+          echo ""
+          echo "   Then run: sudo nix run nix-darwin -- switch --flake ~/.config/nix"
           exit 1
         fi
 
-        # Add OrbStack CLI to PATH for this session
-        export PATH="/Applications/OrbStack.app/Contents/Resources/bin:$PATH"
+        # Add OrbStack CLI directory to PATH for this session
+        ORB_DIR=$(dirname "$ORB_CLI")
+        export PATH="$ORB_DIR:$PATH"
 
         # OrbStack status
         echo "🖥️  OrbStack Status:"

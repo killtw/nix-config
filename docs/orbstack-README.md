@@ -34,20 +34,23 @@
 killtw.programs.cloud.orbstack = {
   enable = false;                    # 啟用 OrbStack
   autoStart = false;                 # 開機自動啟動
-  
+
+  # 安裝方式（僅影響 CLI 路徑檢測）
+  installMethod = "homebrew";        # 安裝方式：homebrew 或 manual
+
   # 資源配置提示（OrbStack 自動管理）
   cpu = 0;                          # CPU 核心數（0 = 自動）
   memory = 0;                       # 記憶體 GB（0 = 自動）
   disk = 0;                         # 磁碟空間 GB（0 = 自動）
-  
+
   # 功能啟用
   enableDocker = true;              # Docker 相容性
   enableDockerCompose = true;       # Docker Compose 支援
   enableKubernetes = false;         # Kubernetes 支援
-  
+
   # 配置
   dockerSocket = "/var/run/docker.sock";  # Docker socket 路徑
-  
+
   # 自定義別名
   aliases = {
     dps = "docker ps";
@@ -148,7 +151,27 @@ OrbStack 的一大優勢是自動資源管理：
 
 - macOS 12.0 或更新版本
 - Apple Silicon 或 Intel Mac
-- 從 [OrbStack 官網](https://orbstack.dev) 或 App Store 安裝 OrbStack 應用程式
+
+### 安裝方式
+
+#### 方式 1：Homebrew（推薦，聲明式管理）
+在您的 `systems/<arch>/<hostname>/default.nix` 中添加：
+```nix
+{
+  killtw.apps = {
+    extraCasks = [ "orbstack" ];
+    extraBrews = [ "orbstack" ];
+  };
+}
+```
+然後執行：
+```bash
+sudo nix run nix-darwin -- switch --flake ~/.config/nix
+```
+
+#### 方式 2：手動安裝
+- 從 [OrbStack 官網](https://orbstack.dev) 下載
+- 或從 Mac App Store 安裝
 
 ## 故障排除
 
