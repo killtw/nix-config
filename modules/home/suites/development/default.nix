@@ -38,14 +38,6 @@ in
         awscli = mkIf (elem "awscli" (subtractLists cfg.excludeModules cfg.modules)) {
           enable = true;
         };
-
-        colima = mkIf (elem "colima" (subtractLists cfg.excludeModules cfg.modules)) {
-          enable = true;
-        };
-
-        orbstack = mkIf (elem "orbstack" (subtractLists cfg.excludeModules cfg.modules)) {
-          enable = true;
-        };
       };
     };
   };

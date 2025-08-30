@@ -6,12 +6,51 @@ with lib.${namespace};
 
 let
   cfg = config.${namespace}.programs.cloud.colima;
+
+  # Custom colima-head package built from GitHub main branch
+  colima-head = pkgs.colima.overrideAttrs (oldAttrs: rec {
+    pname = "colima";
+    version = "unstable-2024-08-30";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "abiosoft";
+      repo = "colima";
+      rev = "63b976f1f1357a66c3943865520a7cffb8820d30";  # Latest main branch commit
+      sha256 = "sha256-CcAe1r9ItYtc6X2KJRIs6UgWnqZjP2xjhgZF/MWYKXk=";
+    };
+
+    # Update vendorHash for Go modules
+    vendorHash = "sha256-ZwgzKCOEhgKK2LNRLjnWP6qHI4f6OGORvt3CREJf55I=";
+
+    # Create .git-revision file that the build expects
+    postUnpack = ''
+      echo "63b976f1f1357a66c3943865520a7cffb8820d30" > source/.git-revision
+    '';
+
+    # Override the version info in the build
+    ldflags = oldAttrs.ldflags or [] ++ [
+      "-X github.com/abiosoft/colima/config.appVersion=${version}"
+      "-X github.com/abiosoft/colima/config.revision=63b976f1f1357a66c3943865520a7cffb8820d30"
+    ];
+
+    meta = oldAttrs.meta // {
+      description = "Container runtimes on macOS (and Linux) with minimal setup (HEAD version)";
+      longDescription = ''
+        Colima (containers in Lima) provides container runtimes on macOS with minimal setup.
+        This is the HEAD version built from the latest GitHub source.
+      '';
+    };
+  });
 in
 {
   options.${namespace}.programs.cloud.colima = mkCloudToolOptions "Colima" // {
     # Colima-specific options
     enableDocker = mkBoolOpt true "Enable Docker CLI";
     enableDockerCompose = mkBoolOpt true "Enable Docker Compose";
+
+    # Installation method
+    installMethod = mkEnumOpt [ "nix" "homebrew" ] "nix" "Installation method for Colima";
+    useHead = mkBoolOpt false "Use HEAD version (latest development version from GitHub)";
 
     cpu = mkIntOpt 2 "Number of CPUs";
     memory = mkIntOpt 4 "Memory in GB";
@@ -60,8 +99,10 @@ in
       }
     ];
 
-    home.packages = [
-      (mkPackageWithFallback cfg pkgs.colima)
+    home.packages = let
+      colimaPackage = if cfg.useHead then colima-head else pkgs.colima;
+    in [
+      (mkPackageWithFallback cfg colimaPackage)
     ] ++ mkConditionalPackages cfg.enableDocker [
       pkgs.docker
     ] ++ mkConditionalPackages cfg.enableDockerCompose [
@@ -69,11 +110,13 @@ in
     ];
 
     # Auto-start configuration using launchd
-    launchd.agents.colima = mkIf cfg.autoStart {
+    launchd.agents.colima = mkIf cfg.autoStart (let
+      colimaPackage = if cfg.useHead then colima-head else pkgs.colima;
+    in {
       enable = true;
       config = {
         ProgramArguments = [
-          "${pkgs.colima}/bin/colima"
+          "${colimaPackage}/bin/colima"
           "start"
           "--cpu" "${toString cfg.cpu}"
           "--memory" "${toString cfg.memory}"
@@ -85,11 +128,11 @@ in
         StandardOutPath = "/tmp/colima.out";
         StandardErrorPath = "/tmp/colima.err";
         EnvironmentVariables = {
-          PATH = "${pkgs.colima}/bin:${pkgs.docker}/bin:${pkgs.docker-compose}/bin:/usr/bin:/bin";
+          PATH = "${colimaPackage}/bin:${pkgs.docker}/bin:${pkgs.docker-compose}/bin:/usr/bin:/bin";
           HOME = config.home.homeDirectory;
         };
       };
-    };
+    });
 
     # Watchtower startup script
     home.file.".local/bin/start-watchtower.sh" = mkIf cfg.watchtower.enable {

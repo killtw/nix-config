@@ -16,14 +16,10 @@
 
     programs.cloud.colima = {
       enable = true;
+      useHead = true;  # 使用 GitHub 最新版本
       autoStart = true;
       disk = 100;
       watchtower.enable = true;
-    };
-
-    programs.cloud.orbstack = {
-      enable = true;
-      autoStart = true;
     };
   };
 

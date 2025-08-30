@@ -33,8 +33,6 @@
 
         # Gaming
         "sony-ps-remote-play"
-
-        "orbstack"
       ];
     };
 
