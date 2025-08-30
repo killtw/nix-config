@@ -20,6 +20,12 @@
     # 容器運行時
     runtime = "docker";  # 或 "containerd"
 
+    # 網路配置
+    networkAddress = true;           # 啟用網路地址分配
+    networkMode = "bridged";         # 網路模式：shared 或 bridged
+    networkInterface = "en0";        # 網路介面（預設：en0）
+    dns = [ "1.1.1.1" "8.8.8.8" ];  # 自定義 DNS 伺服器
+
     # 功能啟用
     enableDocker = true;           # 啟用 Docker CLI
     enableDockerCompose = true;    # 啟用 Docker Compose
@@ -65,6 +71,14 @@
 # - 最新的錯誤修復
 # - 支援最新的 macOS 版本
 # - 性能優化和改進
+#
+# 網路配置說明：
+# - networkAddress: 啟用後 VM 會獲得一個 IP 地址
+# - networkMode:
+#   * shared: 共享主機網路（預設）
+#   * bridged: 橋接模式，VM 直接連接到網路
+# - networkInterface: 指定使用的網路介面
+# - dns: 自定義 DNS 伺服器列表
 #
 # HEAD 版本的注意事項：
 # - 可能包含未完全測試的功能
