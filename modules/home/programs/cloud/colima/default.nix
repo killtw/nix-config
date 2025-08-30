@@ -105,6 +105,7 @@ in
       (mkPackageWithFallback cfg colimaPackage)
     ] ++ mkConditionalPackages cfg.enableDocker [
       pkgs.docker
+      pkgs.docker-credential-helpers  # 包含 docker-credential-osxkeychain
     ] ++ mkConditionalPackages cfg.enableDockerCompose [
       pkgs.docker-compose
     ];
@@ -128,7 +129,7 @@ in
         StandardOutPath = "/tmp/colima.out";
         StandardErrorPath = "/tmp/colima.err";
         EnvironmentVariables = {
-          PATH = "${colimaPackage}/bin:${pkgs.docker}/bin:${pkgs.docker-compose}/bin:/usr/bin:/bin";
+          PATH = "${colimaPackage}/bin:${pkgs.docker}/bin:${pkgs.docker-compose}/bin:${pkgs.docker-credential-helpers}/bin:/usr/bin:/bin";
           HOME = config.home.homeDirectory;
         };
       };
@@ -341,11 +342,48 @@ EOF
       executable = true;
     };
 
+    # Docker 配置檔案初始化腳本 - 避免符號連結問題
+    home.file.".local/bin/init-docker-config.sh" = mkIf cfg.enableDocker {
+      executable = true;
+      text = ''
+        #!/bin/bash
+
+        # 創建 Docker 配置目錄
+        mkdir -p ~/.docker
+
+        # 如果配置檔案是符號連結，則移除它
+        if [ -L ~/.docker/config.json ]; then
+          rm ~/.docker/config.json
+        fi
+
+        # 創建基本的 Docker 配置檔案（如果不存在）
+        if [ ! -f ~/.docker/config.json ]; then
+          cat > ~/.docker/config.json << 'EOF'
+{
+  "credsStore": "osxkeychain",
+  "credHelpers": {
+    "gcr.io": "gcloud",
+    "us.gcr.io": "gcloud",
+    "eu.gcr.io": "gcloud",
+    "asia.gcr.io": "gcloud",
+    "staging-k8s.gcr.io": "gcloud",
+    "marketplace.gcr.io": "gcloud"
+  }
+}
+EOF
+        fi
+
+        echo "✅ Docker 配置檔案已初始化"
+      '';
+    };
+
     # Shell aliases
     programs.zsh.shellAliases = mkIf config.programs.zsh.enable (cfg.aliases // {
       # Only alias docker to nerdctl when using containerd runtime
       docker = mkIf (cfg.enableDocker && cfg.runtime == "containerd") "nerdctl";
       dc = mkIf cfg.enableDockerCompose "docker compose";
+    } // optionalAttrs cfg.enableDocker {
+      init-docker-config = "~/.local/bin/init-docker-config.sh";
     } // optionalAttrs cfg.watchtower.enable {
       watchtower-status = "~/.local/bin/watchtower-status.sh";
       watchtower-logs = "~/.local/bin/watchtower-logs.sh";
