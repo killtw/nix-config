@@ -19,6 +19,9 @@
       useHead = true;
       autoStart = true;
       disk = 60;
+      networkAddress = true;
+      networkMode = "bridged";
+      dns = [ "1.1.1.1" "8.8.8.8" ];
     };
   };
 

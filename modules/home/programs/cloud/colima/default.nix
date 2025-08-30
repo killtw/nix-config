@@ -55,6 +55,11 @@ in
     cpu = mkIntOpt 2 "Number of CPUs";
     memory = mkIntOpt 4 "Memory in GB";
     disk = mkIntOpt 60 "Disk size in GB";
+    networkAddress = mkBoolOpt false "Network address";
+    networkMode = mkEnumOpt [ "shared" "bridged" ] "shared" "Network mode";
+    networkInterface = mkStrOpt "en0" "Network interface";
+    # --dns 8.8.8.8 --dns 1.1.1.1
+    dns = mkListOpt types.str [] "DNS servers";
 
     runtime = mkEnumOpt [ "docker" "containerd" ] "docker" "Container runtime";
 
@@ -123,7 +128,13 @@ in
           "--memory" "${toString cfg.memory}"
           "--disk" "${toString cfg.disk}"
           "--runtime" cfg.runtime
-        ];
+        ] ++ optionals cfg.networkAddress [
+          "--network-address"
+        ] ++ optionals (cfg.networkMode != "shared") [
+          "--network-mode" cfg.networkMode
+        ] ++ optionals (cfg.networkInterface != "en0") [
+          "--network-interface" cfg.networkInterface
+        ] ++ lib.flatten (map (dns: ["--dns" dns]) cfg.dns);
         RunAtLoad = true;
         KeepAlive = false;
         StandardOutPath = "/tmp/colima.out";
