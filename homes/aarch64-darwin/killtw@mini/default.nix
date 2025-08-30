@@ -16,10 +16,9 @@
 
     programs.cloud.colima = {
       enable = true;
-      useHead = true;  # 使用 GitHub 最新版本
+      useHead = true;
       autoStart = true;
-      disk = 100;
-      watchtower.enable = true;
+      disk = 60;
     };
   };
 
