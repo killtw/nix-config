@@ -13,6 +13,10 @@ in
   };
 
   config = mkIf cfg.enable {
+    # Fix GID mismatch for Determinate Systems Nix installer
+    # The Determinate Systems installer uses GID 350 instead of the old default 30000
+    ids.gids.nixbld = 350;
+
     system = {
       primaryUser = "killtw";
       stateVersion = 4;
