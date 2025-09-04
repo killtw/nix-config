@@ -61,13 +61,13 @@ in
         # Productivity
         "arc"
         "raycast"
+        "popclip"
 
         # Media
         "spotify"
         "sonos"
 
         # System
-        "adguard"
         "airbuddy"
         "betterdisplay"
         "jordanbaird-ice"
@@ -83,7 +83,6 @@ in
         Keynote = 409183694;
         Numbers = 409203825;
         Pages = 409201541;
-        PopClip = 445189367;
         "The Unarchiver" = 425424353;
 
         # Communication
