@@ -21,21 +21,6 @@
 }: {
   # Enable Snowfall modules
   ${namespace} = {
-    apps = {
-      extraCasks = [
-        # System
-        "itsycal"
-        "karabiner-elements"
-
-        # Creative
-        "bambu-studio"
-        "thumbhost3mf"
-
-        # Gaming
-        "sony-ps-remote-play"
-      ];
-    };
-
     user = {
       name = "killtw";
       email = "killtw@gmail.com";

@@ -19,7 +19,7 @@
       useHead = true;
       autoStart = true;
       cpu = 4;
-      memory = 8;
+      memory = 12;
       disk = 60;
       networkAddress = true;
       networkMode = "bridged";
