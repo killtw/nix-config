@@ -21,18 +21,37 @@
 }: {
   # Enable Snowfall modules
   ${namespace} = {
-    apps = {
-      extraCasks = [
-        "itsycal"
-        "karabiner-elements"
+    # Enable application suites
+    suites = {
+      # Essential applications for all users
+      common.enable = true;
 
-        # Creative
-        "bambu-studio"
-        "thumbhost3mf"
+      # Development tools
+      development.enable = true;
 
-        # Gaming
-        "sony-ps-remote-play"
-      ];
+      # Productivity applications
+      productivity.enable = true;
+
+      # Media and entertainment
+      media.enable = true;
+
+      # System utilities
+      system = {
+        enable = true;
+        extraCasks = [
+          "itsycal"
+          "karabiner-elements"
+        ];
+      };
+
+      # Communication apps
+      communication.enable = true;
+
+      # Creative tools (3D printing)
+      creative.enable = true;
+
+      # Gaming applications
+      gaming.enable = true;
     };
 
     user = {

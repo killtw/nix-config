@@ -112,4 +112,52 @@ homeLib // {
   mkConditionalPackages = condition: packages:
     if condition then packages else [];
 
+  # Darwin suite options template
+  mkDarwinSuiteOptions = suiteName: availableModules: {
+    enable = lib.mkEnableOption "${suiteName} suite";
+
+    modules = lib.mkOption {
+      type = lib.types.listOf (lib.types.enum availableModules);
+      default = availableModules;
+      description = "List of modules to enable in the ${suiteName} suite";
+    };
+
+    excludeModules = lib.mkOption {
+      type = lib.types.listOf (lib.types.enum availableModules);
+      default = [];
+      description = "List of modules to exclude from the ${suiteName} suite";
+    };
+
+    # Darwin 特定的擴展選項
+    extraTaps = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [];
+      description = "Additional Homebrew taps for ${suiteName} suite";
+    };
+
+    extraBrews = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [];
+      description = "Additional Homebrew brews for ${suiteName} suite";
+    };
+
+    extraCasks = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [];
+      description = "Additional Homebrew casks for ${suiteName} suite";
+    };
+
+    extraMasApps = lib.mkOption {
+      type = lib.types.attrsOf lib.types.int;
+      default = {};
+      description = "Additional Mac App Store applications for ${suiteName} suite";
+    };
+
+    extraPackages = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
+      default = [];
+      description = "Additional system packages for ${suiteName} suite";
+    };
+  };
+
 }
