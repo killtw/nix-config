@@ -9,7 +9,6 @@ let
 
   # Available development applications
   availableModules = [
-    "visual-studio-code"
     "tableplus"
     "lens"
   ];
@@ -32,9 +31,7 @@ in
 
       brews = [] ++ cfg.extraBrews;
 
-      casks = [] ++ (if elem "visual-studio-code" (subtractLists cfg.excludeModules cfg.modules) then [
-        "visual-studio-code"
-      ] else []) ++ (if elem "tableplus" (subtractLists cfg.excludeModules cfg.modules) then [
+      casks = [] ++ (if elem "tableplus" (subtractLists cfg.excludeModules cfg.modules) then [
         "tableplus"
       ] else []) ++ (if elem "lens" (subtractLists cfg.excludeModules cfg.modules) then [
         "lens"

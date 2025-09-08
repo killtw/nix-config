@@ -10,7 +10,6 @@ let
   # Available media applications
   availableModules = [
     "spotify"
-    "ffmpeg"
     "iina"
     "sonos"
   ];
@@ -23,9 +22,7 @@ in
     # Configure system packages
     environment.systemPackages = with pkgs; [
       # Media packages based on enabled applications
-    ] ++ (if elem "ffmpeg" (subtractLists cfg.excludeModules cfg.modules) then [
-      ffmpeg
-    ] else []) ++ (if elem "iina" (subtractLists cfg.excludeModules cfg.modules) then [
+    ] ++ (if elem "iina" (subtractLists cfg.excludeModules cfg.modules) then [
       iina
     ] else []) ++ cfg.extraPackages;
 

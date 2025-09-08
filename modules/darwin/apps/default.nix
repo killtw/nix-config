@@ -9,7 +9,7 @@ let
 in
 {
   options.${namespace}.apps = {
-    enable = mkBoolOpt true "Whether to enable applications configuration.";
+    enable = mkBoolOpt false "Whether to enable applications configuration.";
 
     # Additional Homebrew configuration
     extraTaps = mkListOpt types.str [] "Additional Homebrew taps to add";

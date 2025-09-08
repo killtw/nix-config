@@ -21,21 +21,14 @@
 }: {
   # Enable Snowfall modules
   ${namespace} = {
-    # Enable application suites
     suites = {
-      # Essential applications for all users
       common.enable = true;
-
-      # Development tools
+      communication.enable = true;
       development.enable = true;
-
-      # Productivity applications
-      productivity.enable = true;
-
-      # Media and entertainment
+      gaming.enable = true;
       media.enable = true;
-
-      # System utilities
+      office.enable = true;
+      printing.enable = true;
       system = {
         enable = true;
         extraCasks = [
@@ -43,15 +36,6 @@
           "karabiner-elements"
         ];
       };
-
-      # Communication apps
-      communication.enable = true;
-
-      # Creative tools (3D printing)
-      creative.enable = true;
-
-      # Gaming applications
-      gaming.enable = true;
     };
 
     user = {

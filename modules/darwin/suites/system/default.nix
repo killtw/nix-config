@@ -12,6 +12,7 @@ let
     "airbuddy"
     "betterdisplay"
     "jordanbaird-ice"
+    "popclip"
     "surge"
   ];
 in
@@ -39,6 +40,8 @@ in
         "betterdisplay"
       ] else []) ++ (if elem "jordanbaird-ice" (subtractLists cfg.excludeModules cfg.modules) then [
         "jordanbaird-ice"
+      ] else []) ++ (if elem "popclip" (subtractLists cfg.excludeModules cfg.modules) then [
+        "popclip"
       ] else []) ++ (if elem "surge" (subtractLists cfg.excludeModules cfg.modules) then [
         "surge"
       ] else []) ++ cfg.extraCasks;

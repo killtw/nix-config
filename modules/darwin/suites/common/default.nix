@@ -9,13 +9,8 @@ let
 
   # Available common applications
   availableModules = [
-    "git"
-    "wget"
     "bitwarden-cli"
-    "arc"
     "raycast"
-    "Bitwarden"
-    "The Unarchiver"
   ];
 in
 {
@@ -26,11 +21,9 @@ in
     # Configure system packages
     environment.systemPackages = with pkgs; [
       # System packages based on enabled applications
-    ] ++ (if elem "git" (subtractLists cfg.excludeModules cfg.modules) then [
       git
-    ] else []) ++ (if elem "wget" (subtractLists cfg.excludeModules cfg.modules) then [
       wget
-    ] else []) ++ cfg.extraPackages;
+    ] ++ cfg.extraPackages;
 
     # Configure Homebrew
     homebrew = {
@@ -38,21 +31,21 @@ in
 
       taps = [] ++ cfg.extraTaps;
 
-      brews = [] ++ (if elem "bitwarden-cli" (subtractLists cfg.excludeModules cfg.modules) then [
+      brews = [
         "bitwarden-cli"
-      ] else []) ++ cfg.extraBrews;
+      ] ++ cfg.extraBrews;
 
-      casks = [] ++ (if elem "arc" (subtractLists cfg.excludeModules cfg.modules) then [
+      casks = [
         "arc"
-      ] else []) ++ (if elem "raycast" (subtractLists cfg.excludeModules cfg.modules) then [
+        "visual-studio-code"
+      ] ++ (if elem "raycast" (subtractLists cfg.excludeModules cfg.modules) then [
         "raycast"
       ] else []) ++ cfg.extraCasks;
 
-      masApps = {} // (if elem "Bitwarden" (subtractLists cfg.excludeModules cfg.modules) then {
+      masApps = {
         Bitwarden = 1352778147;
-      } else {}) // (if elem "The Unarchiver" (subtractLists cfg.excludeModules cfg.modules) then {
         "The Unarchiver" = 425424353;
-      } else {}) // cfg.extraMasApps;
+      } // cfg.extraMasApps;
     };
   };
 }

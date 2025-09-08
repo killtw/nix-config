@@ -1,13 +1,13 @@
-# Creative Suite - Creative and design tools
+# Printing Suite - Printing and design tools
 { lib, pkgs, config, namespace, ... }:
 
 with lib;
 with lib.${namespace};
 
 let
-  cfg = config.${namespace}.suites.creative;
+  cfg = config.${namespace}.suites.printing;
 
-  # Available creative applications
+  # Available printing applications
   availableModules = [
     "bambu-studio"
     "thumbhost3mf"
@@ -15,12 +15,12 @@ let
 in
 {
   # Use the Darwin suite options helper from lib
-  options.${namespace}.suites.creative = mkDarwinSuiteOptions "creative" availableModules;
+  options.${namespace}.suites.printing = mkDarwinSuiteOptions "printing" availableModules;
 
   config = mkIf cfg.enable {
     # Configure system packages
     environment.systemPackages = with pkgs; [
-      # Creative packages can be added here
+      # Printing packages can be added here
     ] ++ cfg.extraPackages;
 
     # Configure Homebrew

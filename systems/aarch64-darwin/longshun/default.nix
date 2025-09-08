@@ -21,6 +21,8 @@
 }: {
   # Enable Snowfall modules
   ${namespace} = {
+    apps.enable = true;
+
     user = {
       name = "killtw";
       email = "killtw@gmail.com";
