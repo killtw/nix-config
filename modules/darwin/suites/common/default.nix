@@ -7,12 +7,15 @@ with lib.${namespace};
 let
   cfg = config.${namespace}.suites.common;
 
-  # Available common modules
+  # Available common applications
   availableModules = [
-    "core-packages"
-    "browser"
-    "launcher"
-    "security"
+    "git"
+    "wget"
+    "bitwarden-cli"
+    "arc"
+    "raycast"
+    "Bitwarden"
+    "The Unarchiver"
   ];
 in
 {
@@ -22,9 +25,10 @@ in
   config = mkIf cfg.enable {
     # Configure system packages
     environment.systemPackages = with pkgs; [
-      # Core packages (always enabled if common suite is enabled)
-    ] ++ (if elem "core-packages" (subtractLists cfg.excludeModules cfg.modules) then [
+      # System packages based on enabled applications
+    ] ++ (if elem "git" (subtractLists cfg.excludeModules cfg.modules) then [
       git
+    ] else []) ++ (if elem "wget" (subtractLists cfg.excludeModules cfg.modules) then [
       wget
     ] else []) ++ cfg.extraPackages;
 
@@ -34,18 +38,19 @@ in
 
       taps = [] ++ cfg.extraTaps;
 
-      brews = [] ++ (if elem "core-packages" (subtractLists cfg.excludeModules cfg.modules) then [
+      brews = [] ++ (if elem "bitwarden-cli" (subtractLists cfg.excludeModules cfg.modules) then [
         "bitwarden-cli"
       ] else []) ++ cfg.extraBrews;
 
-      casks = [] ++ (if elem "browser" (subtractLists cfg.excludeModules cfg.modules) then [
+      casks = [] ++ (if elem "arc" (subtractLists cfg.excludeModules cfg.modules) then [
         "arc"
-      ] else []) ++ (if elem "launcher" (subtractLists cfg.excludeModules cfg.modules) then [
+      ] else []) ++ (if elem "raycast" (subtractLists cfg.excludeModules cfg.modules) then [
         "raycast"
       ] else []) ++ cfg.extraCasks;
 
-      masApps = {} // (if elem "security" (subtractLists cfg.excludeModules cfg.modules) then {
+      masApps = {} // (if elem "Bitwarden" (subtractLists cfg.excludeModules cfg.modules) then {
         Bitwarden = 1352778147;
+      } else {}) // (if elem "The Unarchiver" (subtractLists cfg.excludeModules cfg.modules) then {
         "The Unarchiver" = 425424353;
       } else {}) // cfg.extraMasApps;
     };

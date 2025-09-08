@@ -7,10 +7,9 @@ with lib.${namespace};
 let
   cfg = config.${namespace}.suites.gaming;
 
-  # Available gaming modules
+  # Available gaming applications
   availableModules = [
-    "remote-play"
-    "utilities"
+    "sony-ps-remote-play"
   ];
 in
 {
@@ -31,7 +30,7 @@ in
 
       brews = [] ++ cfg.extraBrews;
 
-      casks = [] ++ (if elem "remote-play" (subtractLists cfg.excludeModules cfg.modules) then [
+      casks = [] ++ (if elem "sony-ps-remote-play" (subtractLists cfg.excludeModules cfg.modules) then [
         "sony-ps-remote-play"
       ] else []) ++ cfg.extraCasks;
 

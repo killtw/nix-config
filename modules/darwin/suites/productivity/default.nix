@@ -7,11 +7,12 @@ with lib.${namespace};
 let
   cfg = config.${namespace}.suites.productivity;
 
-  # Available productivity modules
+  # Available productivity applications
   availableModules = [
-    "clipboard"
-    "iwork"
-    "utilities"
+    "popclip"
+    "Keynote"
+    "Numbers"
+    "Pages"
   ];
 in
 {
@@ -32,13 +33,15 @@ in
 
       brews = [] ++ cfg.extraBrews;
 
-      casks = [] ++ (if elem "clipboard" (subtractLists cfg.excludeModules cfg.modules) then [
+      casks = [] ++ (if elem "popclip" (subtractLists cfg.excludeModules cfg.modules) then [
         "popclip"
       ] else []) ++ cfg.extraCasks;
 
-      masApps = {} // (if elem "iwork" (subtractLists cfg.excludeModules cfg.modules) then {
+      masApps = {} // (if elem "Keynote" (subtractLists cfg.excludeModules cfg.modules) then {
         Keynote = 409183694;
+      } else {}) // (if elem "Numbers" (subtractLists cfg.excludeModules cfg.modules) then {
         Numbers = 409203825;
+      } else {}) // (if elem "Pages" (subtractLists cfg.excludeModules cfg.modules) then {
         Pages = 409201541;
       } else {}) // cfg.extraMasApps;
     };

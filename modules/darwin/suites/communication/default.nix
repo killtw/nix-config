@@ -7,10 +7,10 @@ with lib.${namespace};
 let
   cfg = config.${namespace}.suites.communication;
 
-  # Available communication modules
+  # Available communication applications
   availableModules = [
-    "messaging"
-    "social"
+    "dingtalk"
+    "LINE"
   ];
 in
 {
@@ -31,11 +31,11 @@ in
 
       brews = [] ++ cfg.extraBrews;
 
-      casks = [] ++ (if elem "messaging" (subtractLists cfg.excludeModules cfg.modules) then [
+      casks = [] ++ (if elem "dingtalk" (subtractLists cfg.excludeModules cfg.modules) then [
         "dingtalk"
       ] else []) ++ cfg.extraCasks;
 
-      masApps = {} // (if elem "messaging" (subtractLists cfg.excludeModules cfg.modules) then {
+      masApps = {} // (if elem "LINE" (subtractLists cfg.excludeModules cfg.modules) then {
         LINE = 539883307;
       } else {}) // cfg.extraMasApps;
     };

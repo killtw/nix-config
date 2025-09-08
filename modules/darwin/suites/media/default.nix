@@ -7,11 +7,12 @@ with lib.${namespace};
 let
   cfg = config.${namespace}.suites.media;
 
-  # Available media modules
+  # Available media applications
   availableModules = [
-    "music"
-    "video"
-    "audio-system"
+    "spotify"
+    "ffmpeg"
+    "iina"
+    "sonos"
   ];
 in
 {
@@ -21,9 +22,10 @@ in
   config = mkIf cfg.enable {
     # Configure system packages
     environment.systemPackages = with pkgs; [
-      # Media packages
-    ] ++ (if elem "video" (subtractLists cfg.excludeModules cfg.modules) then [
+      # Media packages based on enabled applications
+    ] ++ (if elem "ffmpeg" (subtractLists cfg.excludeModules cfg.modules) then [
       ffmpeg
+    ] else []) ++ (if elem "iina" (subtractLists cfg.excludeModules cfg.modules) then [
       iina
     ] else []) ++ cfg.extraPackages;
 
@@ -35,9 +37,9 @@ in
 
       brews = [] ++ cfg.extraBrews;
 
-      casks = [] ++ (if elem "music" (subtractLists cfg.excludeModules cfg.modules) then [
+      casks = [] ++ (if elem "spotify" (subtractLists cfg.excludeModules cfg.modules) then [
         "spotify"
-      ] else []) ++ (if elem "audio-system" (subtractLists cfg.excludeModules cfg.modules) then [
+      ] else []) ++ (if elem "sonos" (subtractLists cfg.excludeModules cfg.modules) then [
         "sonos"
       ] else []) ++ cfg.extraCasks;
 

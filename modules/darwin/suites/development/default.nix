@@ -7,11 +7,11 @@ with lib.${namespace};
 let
   cfg = config.${namespace}.suites.development;
 
-  # Available development modules
+  # Available development applications
   availableModules = [
-    "ide"
-    "database"
-    "containers"
+    "visual-studio-code"
+    "tableplus"
+    "lens"
   ];
 in
 {
@@ -32,11 +32,11 @@ in
 
       brews = [] ++ cfg.extraBrews;
 
-      casks = [] ++ (if elem "ide" (subtractLists cfg.excludeModules cfg.modules) then [
+      casks = [] ++ (if elem "visual-studio-code" (subtractLists cfg.excludeModules cfg.modules) then [
         "visual-studio-code"
-      ] else []) ++ (if elem "database" (subtractLists cfg.excludeModules cfg.modules) then [
+      ] else []) ++ (if elem "tableplus" (subtractLists cfg.excludeModules cfg.modules) then [
         "tableplus"
-      ] else []) ++ (if elem "containers" (subtractLists cfg.excludeModules cfg.modules) then [
+      ] else []) ++ (if elem "lens" (subtractLists cfg.excludeModules cfg.modules) then [
         "lens"
       ] else []) ++ cfg.extraCasks;
 

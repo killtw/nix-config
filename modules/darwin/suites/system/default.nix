@@ -7,11 +7,12 @@ with lib.${namespace};
 let
   cfg = config.${namespace}.suites.system;
 
-  # Available system modules
+  # Available system applications
   availableModules = [
-    "utilities"
-    "monitoring"
-    "network"
+    "airbuddy"
+    "betterdisplay"
+    "jordanbaird-ice"
+    "surge"
   ];
 in
 {
@@ -32,11 +33,13 @@ in
 
       brews = [] ++ cfg.extraBrews;
 
-      casks = [] ++ (if elem "utilities" (subtractLists cfg.excludeModules cfg.modules) then [
+      casks = [] ++ (if elem "airbuddy" (subtractLists cfg.excludeModules cfg.modules) then [
         "airbuddy"
+      ] else []) ++ (if elem "betterdisplay" (subtractLists cfg.excludeModules cfg.modules) then [
         "betterdisplay"
+      ] else []) ++ (if elem "jordanbaird-ice" (subtractLists cfg.excludeModules cfg.modules) then [
         "jordanbaird-ice"
-      ] else []) ++ (if elem "network" (subtractLists cfg.excludeModules cfg.modules) then [
+      ] else []) ++ (if elem "surge" (subtractLists cfg.excludeModules cfg.modules) then [
         "surge"
       ] else []) ++ cfg.extraCasks;
 
