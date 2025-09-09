@@ -41,4 +41,7 @@
       hostname = "mini";
     };
   };
+
+  # Fix GID mismatch for mini system - use existing GID 30000
+  ids.gids.nixbld = lib.mkForce 30000;
 }
