@@ -21,7 +21,19 @@
 }: {
   # Enable Snowfall modules
   ${namespace} = {
-    apps.enable = true;
+    suites = {
+      common.enable = true;
+      communication.enable = true;
+      development.enable = true;
+      media.enable = true;
+      office.enable = true;
+      system = {
+        enable = true;
+        extraCasks = [
+          "itsycal"
+        ];
+      };
+    };
 
     user = {
       name = "killtw";

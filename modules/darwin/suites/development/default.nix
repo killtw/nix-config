@@ -21,6 +21,7 @@ in
     # Configure system packages
     environment.systemPackages = with pkgs; [
       # Development packages can be added here
+      devbox
     ] ++ cfg.extraPackages;
 
     # Configure Homebrew

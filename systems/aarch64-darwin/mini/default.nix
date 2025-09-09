@@ -21,7 +21,17 @@
 }: {
   # Enable Snowfall modules
   ${namespace} = {
-    apps.enable = true;
+    suites = {
+      common.enable = true;
+      system = {
+        enable = true;
+        excludeModules = [
+          "airbuddy"
+          "betterdisplay"
+          "jordanbaird-ice"
+        ];
+      };
+    };
 
     user = {
       name = "killtw";
