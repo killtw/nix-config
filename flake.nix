@@ -9,7 +9,7 @@
     # System management
     darwin.url = "github:LnL7/nix-darwin";
     home-manager.url = "github:nix-community/home-manager";
-    mac-app-util.url = "github:hraban/mac-app-util";
+    # mac-app-util.url = "github:hraban/mac-app-util";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     # Development tools
@@ -39,11 +39,11 @@
       # External modules configuration
       homes.modules = with inputs; [
         # External Home Manager modules can be added here
-        mac-app-util.homeManagerModules.default
+        # mac-app-util.homeManagerModules.default
       ];
 
       systems.modules.darwin = with inputs; [
-        mac-app-util.darwinModules.default
+        # mac-app-util.darwinModules.default
         nix-homebrew.darwinModules.nix-homebrew
       ];
     };

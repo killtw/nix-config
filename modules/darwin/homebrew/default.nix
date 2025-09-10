@@ -23,10 +23,20 @@ in
       autoMigrate = true;
     };
 
+    homebrew = {
+      enable = true;
+
+      onActivation = {
+        cleanup = "zap";
+        autoUpdate = true;
+      };
+    };
+
     # 設定 homebrew 環境變數
     environment.variables = {
       HOMEBREW_NO_ANALYTICS = "1";
       HOMEBREW_NO_AUTO_UPDATE = "1";
+      EDITOR = "vim";
     };
   };
 }

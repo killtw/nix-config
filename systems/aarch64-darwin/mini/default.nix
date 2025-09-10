@@ -23,6 +23,10 @@
   ${namespace} = {
     suites = {
       common.enable = true;
+      development = {
+        enable = true;
+        extraBrews = [ "gstreamer" ]
+      };
       system = {
         enable = true;
         excludeModules = [
