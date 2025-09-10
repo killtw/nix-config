@@ -25,7 +25,7 @@
       common.enable = true;
       development = {
         enable = true;
-        extraBrews = [ "gstreamer" ]
+        extraBrews = [ "gstreamer" ];
       };
       system = {
         enable = true;
