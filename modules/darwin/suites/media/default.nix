@@ -22,9 +22,7 @@ in
     # Configure system packages
     environment.systemPackages = with pkgs; [
       # Media packages based on enabled applications
-    ] ++ (if elem "iina" (subtractLists cfg.excludeModules cfg.modules) then [
-      iina
-    ] else []) ++ cfg.extraPackages;
+    ] ++ cfg.extraPackages;
 
     # Configure Homebrew
     homebrew = {
@@ -36,6 +34,8 @@ in
 
       casks = [] ++ (if elem "spotify" (subtractLists cfg.excludeModules cfg.modules) then [
         "spotify"
+      ] else []) ++ (if elem "iina" (subtractLists cfg.excludeModules cfg.modules) then [
+        "iina"
       ] else []) ++ (if elem "sonos" (subtractLists cfg.excludeModules cfg.modules) then [
         "sonos"
       ] else []) ++ cfg.extraCasks;

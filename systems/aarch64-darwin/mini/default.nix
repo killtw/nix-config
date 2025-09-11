@@ -26,6 +26,10 @@
       development = {
         enable = true;
         extraBrews = [ "gstreamer" ];
+        excludeModules = [
+          "lens"
+          "tableplus"
+        ];
       };
       system = {
         enable = true;
