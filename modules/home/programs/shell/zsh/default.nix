@@ -100,27 +100,11 @@ in
             blockf atpull"zinit creinstall -q ." \
                 zsh-users/zsh-completions
 
-        function ls() {
-            if [ -x "$(command -v eza)" ] ; then
-                eza -bh --color=auto "$@"
-            else
-                /bin/ls "$@"
-            fi
-        }
-
-        function cat() {
-            if [ -x "$(command -v bat)" ] ; then
-                bat "$@"
-            else
-                /bin/cat "$@"
-            fi
-        }
-
-        function mk() {
+        function mkcd() {
             if [ $# -eq 1 ]; then
                 mkdir -p "$1" && cd "$1"
             else
-                echo "Usage: mk <directory>"
+                echo "Usage: mkcd <directory>"
                 return 1
             fi
         }
@@ -202,6 +186,8 @@ in
                 command phpunit "$@"
             fi
         }
+
+        eval "$(devbox global shellenv)"
       '';
     } // cfg.extraConfig;
   };
