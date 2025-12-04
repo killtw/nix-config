@@ -22,6 +22,7 @@ in
     environment.systemPackages = with pkgs; [
       # Development packages can be added here
       devbox
+      terraform
     ] ++ cfg.extraPackages;
 
     # Configure Homebrew
