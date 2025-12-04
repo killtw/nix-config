@@ -36,6 +36,12 @@
         namespace = "killtw";
       };
 
+      # Configure NixPkgs channels
+      channels-config = {
+        # Allow unfree packages
+        allowUnfree = true;
+      };
+
       # External modules configuration
       homes.modules = with inputs; [
         # External Home Manager modules can be added here
