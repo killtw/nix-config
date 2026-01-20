@@ -9,7 +9,6 @@ let
 
   # Available media applications
   availableModules = [
-    "spotify"
     "iina"
     "sonos"
   ];
@@ -32,9 +31,7 @@ in
 
       brews = [] ++ cfg.extraBrews;
 
-      casks = [] ++ (if elem "spotify" (subtractLists cfg.excludeModules cfg.modules) then [
-        "spotify"
-      ] else []) ++ (if elem "iina" (subtractLists cfg.excludeModules cfg.modules) then [
+      casks = [] ++ (if elem "iina" (subtractLists cfg.excludeModules cfg.modules) then [
         "iina"
       ] else []) ++ (if elem "sonos" (subtractLists cfg.excludeModules cfg.modules) then [
         "sonos"

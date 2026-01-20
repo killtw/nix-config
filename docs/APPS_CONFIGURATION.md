@@ -24,7 +24,7 @@
 ### Homebrew Casks
 - **開發工具**: visual-studio-code, tableplus, lens
 - **生產力工具**: arc, raycast
-- **媒體工具**: spotify, sonos
+- **媒體工具**: sonos
 - **系統工具**: adguard, airbuddy, betterdisplay, itsycal, jordanbaird-ice, karabiner-elements, surge
 - **創意工具**: bambu-studio, thumbhost3mf
 - **通訊工具**: dingtalk

@@ -86,7 +86,6 @@ Darwin Suites 提供模組化的 macOS 應用程式管理，每個 suite 包含�
 - **surge**: 網路代理工具
 
 ### 🎵 Media Suite - 多媒體應用
-- **spotify**: 音樂串流服務
 - **iina**: 現代化影片播放器
 - **sonos**: Sonos 音響系統控制
 
@@ -396,10 +395,10 @@ ${namespace} = {
       extraCasks = ["itsycal" "karabiner-elements"];
     };
 
-    # 多媒體 - 只安裝 Spotify 和 IINA
+    # 多媒體 - 只安裝 IINA
     media = {
       enable = true;
-      modules = ["spotify" "iina"];
+      modules = ["iina"];
     };
   };
 };
