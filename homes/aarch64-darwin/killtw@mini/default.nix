@@ -25,6 +25,10 @@
       networkMode = "bridged";
       dns = [ "1.1.1.1" "8.8.8.8" ];
     };
+
+    services.scrypted = {
+      enable = true;
+    };
   };
 
   home.stateVersion = "24.05";
