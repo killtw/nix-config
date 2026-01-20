@@ -9,6 +9,7 @@ let
 
   # Available development applications
   availableModules = [
+    "antigravity"
     "tableplus"
     "lens"
   ];
@@ -33,7 +34,9 @@ in
 
       brews = [] ++ cfg.extraBrews;
 
-      casks = [] ++ (if elem "tableplus" (subtractLists cfg.excludeModules cfg.modules) then [
+      casks = [] ++ (if elem "antigravity" (subtractLists cfg.excludeModules cfg.modules) then [
+        "antigravity"
+      ] else []) ++ (if elem "tableplus" (subtractLists cfg.excludeModules cfg.modules) then [
         "tableplus"
       ] else []) ++ (if elem "lens" (subtractLists cfg.excludeModules cfg.modules) then [
         "lens"

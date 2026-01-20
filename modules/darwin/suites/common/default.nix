@@ -22,6 +22,7 @@ in
     environment.systemPackages = with pkgs; [
       # System packages based on enabled applications
       git
+      obsidian
       wget
     ] ++ cfg.extraPackages;
 
@@ -37,6 +38,7 @@ in
 
       casks = [
         "arc"
+        "thebrowsercompany-dia"
         "visual-studio-code"
       ] ++ (if elem "raycast" (subtractLists cfg.excludeModules cfg.modules) then [
         "raycast"
