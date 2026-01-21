@@ -25,7 +25,11 @@
       common.enable = true;
       development = {
         enable = true;
-        extraBrews = [ "gstreamer" ];
+        extraBrews = [
+          "gstreamer"
+          "container"
+          "container-compose"
+        ];
         excludeModules = [
           "lens"
           "tableplus"
