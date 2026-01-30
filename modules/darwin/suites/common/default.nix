@@ -46,7 +46,6 @@ in
 
       masApps = {
         Bitwarden = 1352778147;
-        "The Unarchiver" = 425424353;
       } // cfg.extraMasApps;
     };
   };
