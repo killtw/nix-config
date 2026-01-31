@@ -9,9 +9,9 @@ let
 
   # Available development applications
   availableModules = [
-    "antigravity"
     "tableplus"
     "lens"
+    "zed"
   ];
 in
 {
@@ -34,12 +34,12 @@ in
 
       brews = [] ++ cfg.extraBrews;
 
-      casks = [] ++ (if elem "antigravity" (subtractLists cfg.excludeModules cfg.modules) then [
-        "antigravity"
-      ] else []) ++ (if elem "tableplus" (subtractLists cfg.excludeModules cfg.modules) then [
+      casks = [] ++ (if elem "tableplus" (subtractLists cfg.excludeModules cfg.modules) then [
         "tableplus"
       ] else []) ++ (if elem "lens" (subtractLists cfg.excludeModules cfg.modules) then [
         "lens"
+      ] else []) ++ (if elem "zed" (subtractLists cfg.excludeModules cfg.modules) then [
+        "zed"
       ] else []) ++ cfg.extraCasks;
 
       masApps = {} // cfg.extraMasApps;

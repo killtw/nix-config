@@ -55,8 +55,7 @@ in
 
       initContent = ''
         export XDG_CACHE_HOME=~/.cache
-        export PATH=$PATH:./vendor/bin:~/bin
-        export PATH=$HOME/.local/lib/bin:$PATH
+        export PATH=./vendor/bin:~/bin:$HOME/.local/lib/bin:$HOME/.cache/.bun/bin:$PATH
 
         setopt auto_cd multios prompt_subst promptsubst auto_pushd pushd_ignore_dups pushdminus
         autoload -Uz colors && colors
