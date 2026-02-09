@@ -10,6 +10,7 @@ let
   # Available communication applications
   availableModules = [
     "dingtalk"
+    "discord"
     "LINE"
   ];
 in
@@ -33,6 +34,8 @@ in
 
       casks = [] ++ (if elem "dingtalk" (subtractLists cfg.excludeModules cfg.modules) then [
         "dingtalk"
+      ] else []) ++ (if elem "discord" (subtractLists cfg.excludeModules cfg.modules) then [
+        "discord"
       ] else []) ++ cfg.extraCasks;
 
       masApps = {} // (if elem "LINE" (subtractLists cfg.excludeModules cfg.modules) then {
