@@ -14,6 +14,7 @@ let
     "jordanbaird-ice"
     "popclip"
     "surge"
+    "rustdesk"
   ];
 in
 {
@@ -44,6 +45,8 @@ in
         "popclip"
       ] else []) ++ (if elem "surge" (subtractLists cfg.excludeModules cfg.modules) then [
         "surge"
+      ] else []) ++ (if elem "rustdesk" (subtractLists cfg.excludeModules cfg.modules) then [
+        "rustdesk"
       ] else []) ++ cfg.extraCasks;
 
       masApps = {} // cfg.extraMasApps;
