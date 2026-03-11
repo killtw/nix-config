@@ -12,10 +12,7 @@ let
     "kubectl"
     "helm"
     "awscli"
-    "gcp"
     "colima"
-    "podman"
-    "orbstack"
     "opencode"
   ];
 in

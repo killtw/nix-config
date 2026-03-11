@@ -11,7 +11,6 @@ let
   availableModules = [
     "tableplus"
     "lens"
-    "zed"
   ];
 in
 {
@@ -38,8 +37,6 @@ in
         "tableplus"
       ] else []) ++ (if elem "lens" (subtractLists cfg.excludeModules cfg.modules) then [
         "lens"
-      ] else []) ++ (if elem "zed" (subtractLists cfg.excludeModules cfg.modules) then [
-        "zed"
       ] else []) ++ cfg.extraCasks;
 
       masApps = {} // cfg.extraMasApps;
