@@ -60,10 +60,43 @@ in
       package = mkPackageWithFallback cfg pkgs.git;
       lfs.enable = cfg.enableLfs;
 
-      userName = cfg.userName;
-      userEmail = cfg.userEmail;
+      settings = {
+        user = {
+          name = cfg.userName;
+          email = cfg.userEmail;
+        } // (optionalAttrs cfg.enableSigning {
+          signingkey = cfg.signingKey;
+        });
 
-      extraConfig = {
+        alias = {
+          # Common aliases
+          br = "branch";
+          co = "checkout";
+          st = "status";
+          ls = "log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate";
+          ll = "log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate --numstat";
+          cm = "commit -m";
+          ca = "commit -am";
+          dc = "diff --cached";
+          amend = "commit --amend -m";
+
+          # Submodule aliases
+          update = "submodule update --init --recursive";
+          foreach = "submodule foreach";
+
+          # Additional workflow aliases
+          unstage = "reset HEAD --";
+          last = "log -1 HEAD";
+          visual = "!gitk";
+
+          # Branch management
+          cleanup = "!git branch --merged | grep -v '\\*\\|main\\|master\\|develop' | xargs -n 1 git branch -d";
+
+          # Log aliases
+          graph = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+          hist = "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short";
+        } // cfg.extraAliases // cfg.aliases;
+
         init.defaultBranch = cfg.defaultBranch;
         branch.sort = "-committerdate";
         column.ui = "auto";
@@ -102,48 +135,17 @@ in
         };
 
         tag.sort = "version:refname";
-
-        # Conditional signing configuration
       } // (optionalAttrs cfg.enableSigning {
         commit.gpgsign = true;
-        user.signingkey = cfg.signingKey;
       }) // cfg.extraConfig;
 
-      aliases = {
-        # Common aliases
-        br = "branch";
-        co = "checkout";
-        st = "status";
-        ls = "log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate";
-        ll = "log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate --numstat";
-        cm = "commit -m";
-        ca = "commit -am";
-        dc = "diff --cached";
-        amend = "commit --amend -m";
-
-        # Submodule aliases
-        update = "submodule update --init --recursive";
-        foreach = "submodule foreach";
-
-        # Additional workflow aliases
-        unstage = "reset HEAD --";
-        last = "log -1 HEAD";
-        visual = "!gitk";
-
-        # Branch management
-        cleanup = "!git branch --merged | grep -v '\\*\\|main\\|master\\|develop' | xargs -n 1 git branch -d";
-
-        # Log aliases
-        graph = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
-        hist = "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short";
-      } // cfg.extraAliases // cfg.aliases;
-
-      delta = mkIf cfg.enableDelta {
-        enable = true;
-        options = cfg.deltaOptions;
-      };
-
       ignores = cfg.ignorePatterns;
+    };
+
+    programs.delta = mkIf cfg.enableDelta {
+      enable = true;
+      enableGitIntegration = true;
+      options = cfg.deltaOptions;
     };
   };
 }
