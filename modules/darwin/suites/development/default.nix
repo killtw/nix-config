@@ -31,7 +31,9 @@ in
 
       taps = [] ++ cfg.extraTaps;
 
-      brews = [] ++ cfg.extraBrews;
+      brews = [
+        "gh"
+      ] ++ cfg.extraBrews;
 
       casks = [] ++ (if elem "tableplus" (subtractLists cfg.excludeModules cfg.modules) then [
         "tableplus"
