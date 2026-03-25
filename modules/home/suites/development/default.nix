@@ -13,7 +13,6 @@ let
     "helm"
     "awscli"
     "colima"
-    "opencode"
   ];
 in
 {
@@ -28,10 +27,6 @@ in
         };
 
         helm = mkIf (elem "helm" (subtractLists cfg.excludeModules cfg.modules)) {
-          enable = true;
-        };
-
-        opencode = mkIf (elem "opencode" (subtractLists cfg.excludeModules cfg.modules)) {
           enable = true;
         };
       };

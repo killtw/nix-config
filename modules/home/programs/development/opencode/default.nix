@@ -1,14 +1,12 @@
 # OpenCode - Open source AI coding agent module with namespace support
-{ lib, pkgs, config, namespace, inputs, ... }:
+# Package installed via Homebrew (Darwin suite), this module manages config and env vars
+{ lib, pkgs, config, namespace, ... }:
 
 with lib;
 with lib.${namespace};
 
 let
   cfg = config.${namespace}.programs.development.opencode;
-
-  # Get opencode package from flake input
-  opencodePkg = inputs.opencode.packages.${pkgs.system}.default;
 in
 {
   options.${namespace}.programs.development.opencode = mkDevelopmentToolOptions "OpenCode" // {
@@ -30,11 +28,6 @@ in
       }
     ];
 
-    # Install OpenCode package
-    home.packages = [
-      (mkPackageWithFallback cfg opencodePkg)
-    ];
-
     # Environment variables
     home.sessionVariables = {
       DISABLE_AUTOUPDATER = if cfg.enableAutoUpdater then "0" else "1";
@@ -42,19 +35,18 @@ in
 
     # Shell aliases from config
     programs.zsh.shellAliases = mkIf config.programs.zsh.enable (
-      { opencode-update = "nix flake update opencode --flake ~/.config/nix"; }
+      { opencode-update = "brew upgrade opencode"; }
       // cfg.aliases
     );
 
     programs.bash.shellAliases = mkIf config.programs.bash.enable (
-      { opencode-update = "nix flake update opencode --flake ~/.config/nix"; }
+      { opencode-update = "brew upgrade opencode"; }
       // cfg.aliases
     );
 
     programs.fish.shellAliases = mkIf config.programs.fish.enable (
-      { opencode-update = "nix flake update opencode --flake ~/.config/nix"; }
+      { opencode-update = "brew upgrade opencode"; }
       // cfg.aliases
     );
   };
 }
-
