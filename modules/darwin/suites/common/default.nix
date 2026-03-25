@@ -38,7 +38,6 @@ in
 
       casks = [
         "arc"
-        "thebrowsercompany-dia"
         "visual-studio-code"
       ] ++ (if elem "raycast" (subtractLists cfg.excludeModules cfg.modules) then [
         "raycast"
