@@ -34,6 +34,7 @@ in
       # Plugins
       plugins = with pkgs; [
         tmuxPlugins.sensible
+        tmuxPlugins.resurrect
       ];
 
       # Custom pane navigation and resize
