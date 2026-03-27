@@ -33,7 +33,6 @@ in
 
       brews = [
         "gh"
-        "opencode"
       ] ++ cfg.extraBrews;
 
       casks = [] ++ (if elem "tableplus" (subtractLists cfg.excludeModules cfg.modules) then [

@@ -10,7 +10,6 @@ let
   # Available common modules
   availableModules = [
     "git"
-    "direnv"
     "zsh"
     "bat"
     "eza"
@@ -31,10 +30,6 @@ in
     ${namespace}.programs = {
       development = {
         git = mkIf (elem "git" (subtractLists cfg.excludeModules cfg.modules)) {
-          enable = true;
-        };
-
-        direnv = mkIf (elem "direnv" (subtractLists cfg.excludeModules cfg.modules)) {
           enable = true;
         };
       };
