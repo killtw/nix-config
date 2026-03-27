@@ -1,5 +1,5 @@
 # OpenCode - Open source AI coding agent module with namespace support
-# Package installed via Homebrew (Darwin suite), this module manages config and env vars
+# Package installed via Nix/Home Manager, this module manages package, config and env vars
 { lib, pkgs, config, namespace, ... }:
 
 with lib;
@@ -28,6 +28,11 @@ in
       }
     ];
 
+    # Package installation
+    home.packages = [
+      (mkPackageWithFallback cfg pkgs.opencode)
+    ];
+
     # Environment variables
     home.sessionVariables = {
       DISABLE_AUTOUPDATER = if cfg.enableAutoUpdater then "0" else "1";
@@ -35,17 +40,12 @@ in
 
     # Shell aliases from config
     programs.zsh.shellAliases = mkIf config.programs.zsh.enable (
-      { opencode-update = "brew upgrade opencode"; }
+      { opencode-update = "nix flake update opencode --flake ~/.config/nix"; }
       // cfg.aliases
     );
 
     programs.bash.shellAliases = mkIf config.programs.bash.enable (
-      { opencode-update = "brew upgrade opencode"; }
-      // cfg.aliases
-    );
-
-    programs.fish.shellAliases = mkIf config.programs.fish.enable (
-      { opencode-update = "brew upgrade opencode"; }
+      { opencode-update = "nix flake update opencode --flake ~/.config/nix"; }
       // cfg.aliases
     );
   };
