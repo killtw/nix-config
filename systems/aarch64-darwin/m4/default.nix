@@ -33,7 +33,6 @@
         enable = true;
         extraCasks = [
           "itsycal"
-          "karabiner-elements"
         ];
       };
     };
