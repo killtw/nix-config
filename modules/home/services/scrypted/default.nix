@@ -9,7 +9,7 @@ let
   # Python environment for Scrypted
   # Scrypted requires: debugpy, typing_extensions, opencv-python
   # We use opencv4 from nixpkgs which provides python bindings
-  pythonEnv = pkgs.python311.withPackages (ps: with ps; [
+  pythonEnv = pkgs.python312.withPackages (ps: with ps; [
     debugpy
     typing-extensions
     opencv4
