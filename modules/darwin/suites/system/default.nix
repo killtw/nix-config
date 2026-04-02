@@ -22,6 +22,8 @@ in
   options.${namespace}.suites.system = mkDarwinSuiteOptions "system" availableModules;
 
   config = mkIf cfg.enable {
+    services.tailscale.enable = true;
+
     # Configure system packages
     environment.systemPackages = with pkgs; [
       # System packages can be added here
