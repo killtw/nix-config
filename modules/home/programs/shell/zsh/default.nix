@@ -100,60 +100,6 @@ in
             blockf atpull"zinit creinstall -q ." \
                 zsh-users/zsh-completions
 
-        function mkcd() {
-            if [ $# -eq 1 ]; then
-                mkdir -p "$1" && cd "$1"
-            else
-                echo "Usage: mkcd <directory>"
-                return 1
-            fi
-        }
-
-        function extract () {
-            if [ -f $1 ] ; then
-                case $1 in
-                    *.tar.bz2) tar xjf $1 ;;
-                    *.tar.gz) tar xzf $1 ;;
-                    *.bz2) bunzip2 $1 ;;
-                    *.rar) unrar e $1 ;;
-                    *.gz) gunzip $1 ;;
-                    *.tar) tar xf $1 ;;
-                    *.tbz2) tar xjf $1 ;;
-                    *.tgz) tar xzf $1 ;;
-                    *.zip) unzip "$1" ;;
-                    *.Z) uncompress $1 ;;
-                    *.7z) 7z x $1 ;;
-                    *) echo "'$1' cannot be extracted via extract()" ;;
-                esac
-            else
-                echo "'$1' is not a valid file"
-            fi
-        }
-
-        function docker-cleanup {
-          EXITED=$(docker ps -q -f status=exited)
-          DANGLING=$(docker images -q -f "dangling=true")
-
-          if [ "$1" = "--dry-run" ]; then
-            echo "==> Would stop containers:"
-            echo "$EXITED"
-            echo "==> And images:"
-            echo "$DANGLING"
-          else
-            if [ -n "$EXITED" ]; then
-              docker rm -f $EXITED
-            else
-              echo "No containers to remove."
-            fi
-            if [ -n "$DANGLING" ]; then
-              docker rmi -f $DANGLING
-            else
-              echo "No images to remove."
-            fi
-          fi
-        }
-
-
         # PHP
         alias -- x="composer"
         alias -- art="php artisan"
@@ -177,14 +123,6 @@ in
         function rollback() {
           [ -e "artisan" ] && php artisan migrate:rollback "$@"
           [ -e "Rakefile" ] && bundle exec rake db:rollback "$@"
-        }
-
-        function phpunit {
-            if [ -e "vendor/bin/phpunit" ]; then
-                vendor/bin/phpunit "$@"
-            elif [[ -x "$(command -v phpunit)" ]]; then
-                command phpunit "$@"
-            fi
         }
 
         eval "$(devbox global shellenv)"
