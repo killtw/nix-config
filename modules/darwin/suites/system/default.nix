@@ -11,9 +11,9 @@ let
   availableModules = [
     "airbuddy"
     "betterdisplay"
-    "jordanbaird-ice"
     "popclip"
     "surge"
+    "thaw"
     "rustdesk"
   ];
 in
@@ -41,12 +41,12 @@ in
         "airbuddy"
       ] else []) ++ (if elem "betterdisplay" (subtractLists cfg.excludeModules cfg.modules) then [
         "betterdisplay"
-      ] else []) ++ (if elem "jordanbaird-ice" (subtractLists cfg.excludeModules cfg.modules) then [
-        "jordanbaird-ice"
       ] else []) ++ (if elem "popclip" (subtractLists cfg.excludeModules cfg.modules) then [
         "popclip"
       ] else []) ++ (if elem "surge" (subtractLists cfg.excludeModules cfg.modules) then [
         "surge"
+      ] else []) ++ (if elem "thaw" (subtractLists cfg.excludeModules cfg.modules) then [
+        "thaw"
       ] else []) ++ (if elem "rustdesk" (subtractLists cfg.excludeModules cfg.modules) then [
         "rustdesk"
       ] else []) ++ cfg.extraCasks;

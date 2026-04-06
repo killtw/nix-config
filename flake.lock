@@ -197,6 +197,40 @@
         "type": "github"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1773909469,
+        "narHash": "sha256-vglVrLfHjFIzIdV9A27Ugul6rh3I1qHbbitGW7dk420=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7149c06513f335be57f26fcbbbe34afda923882b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "opencode": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1775270840,
+        "narHash": "sha256-Iy87WU8UzFTsi/gxvzzwBCa36E6qFYKtB6VzcNql0UA=",
+        "owner": "anomalyco",
+        "repo": "opencode",
+        "rev": "00fa68b3a70facfe942523d35e2ecbf8456f0d49",
+        "type": "github"
+      },
+      "original": {
+        "owner": "anomalyco",
+        "repo": "opencode",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "darwin": "darwin",
@@ -204,6 +238,7 @@
         "home-manager": "home-manager",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs_2",
+        "opencode": "opencode",
         "snowfall-lib": "snowfall-lib"
       }
     },
