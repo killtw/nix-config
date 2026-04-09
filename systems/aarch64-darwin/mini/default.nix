@@ -27,8 +27,6 @@
         enable = true;
         extraBrews = [
           "gstreamer"
-          "container"
-          "container-compose"
         ];
         excludeModules = [
           "lens"
@@ -40,7 +38,6 @@
         excludeModules = [
           "airbuddy"
           "betterdisplay"
-          "jordanbaird-ice"
         ];
       };
     };
