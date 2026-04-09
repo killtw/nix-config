@@ -26,10 +26,6 @@ in
     homebrew = {
       enable = true;
 
-      taps = [
-        "steipete/tap"
-      ];
-
       onActivation = {
         cleanup = "zap";
         autoUpdate = true;
