@@ -16,14 +16,12 @@
 
     programs.cloud.colima = {
       enable = true;
-      useHead = true;
       autoStart = true;
       cpu = 4;
       memory = 12;
       disk = 60;
-      networkAddress = true;
-      networkMode = "bridged";
       dns = [ "1.1.1.1" "8.8.8.8" ];
+      portForwarder = "grpc";
     };
 
     services.scrypted = {

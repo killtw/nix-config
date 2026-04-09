@@ -62,6 +62,7 @@ in
     dns = mkListOpt types.str [] "DNS servers";
 
     runtime = mkEnumOpt [ "docker" "containerd" ] "docker" "Container runtime";
+    portForwarder = mkEnumOpt [ "ssh" "grpc" "none" ] "ssh" "Port forwarding backend";
 
     autoStart = mkBoolOpt false "Auto start Colima on login";
 
@@ -128,6 +129,7 @@ in
           "--memory" "${toString cfg.memory}"
           "--disk" "${toString cfg.disk}"
           "--runtime" cfg.runtime
+          "--port-forwarder" cfg.portForwarder
         ] ++ optionals cfg.networkAddress [
           "--network-address"
         ] ++ optionals (cfg.networkMode != "shared") [
