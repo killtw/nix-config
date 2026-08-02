@@ -38,6 +38,7 @@ in
 
       casks = [
         "arc"
+        "chatgpt"
         "visual-studio-code"
       ] ++ (if elem "raycast" (subtractLists cfg.excludeModules cfg.modules) then [
         "raycast"
@@ -45,6 +46,8 @@ in
 
       masApps = {
         Bitwarden = 1352778147;
+        "The Unarchiver" = 425424353;
+        "Obsidian Web Clipper" = 6720708363;
       } // cfg.extraMasApps;
     };
   };

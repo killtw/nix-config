@@ -19,6 +19,9 @@
   config,
   ...
 }: {
+  # Preserve a local copy when Home Manager takes over an existing file.
+  home-manager.backupFileExtension = "hm-backup";
+
   # Enable Snowfall modules
   ${namespace} = {
     suites = {

@@ -17,7 +17,6 @@ let
     "zoxide"
     "starship"
     "alacritty"
-    "ghostty"
     "tmux"
   ];
 in
@@ -64,10 +63,6 @@ in
 
       terminal = {
         alacritty = mkIf (elem "alacritty" (subtractLists cfg.excludeModules cfg.modules)) {
-          enable = true;
-        };
-
-        ghostty = mkIf (elem "ghostty" (subtractLists cfg.excludeModules cfg.modules)) {
           enable = true;
         };
 
