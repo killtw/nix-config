@@ -14,6 +14,8 @@ let
     "bat"
     "eza"
     "fzf"
+    "ghostty"
+    "herdr"
     "zoxide"
     "starship"
     "alacritty"
@@ -63,6 +65,14 @@ in
 
       terminal = {
         alacritty = mkIf (elem "alacritty" (subtractLists cfg.excludeModules cfg.modules)) {
+          enable = true;
+        };
+
+        ghostty = mkIf (elem "ghostty" (subtractLists cfg.excludeModules cfg.modules)) {
+          enable = true;
+        };
+
+        herdr = mkIf (elem "herdr" (subtractLists cfg.excludeModules cfg.modules)) {
           enable = true;
         };
 
