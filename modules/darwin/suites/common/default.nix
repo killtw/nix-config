@@ -34,6 +34,7 @@ in
 
       brews = [
         "bitwarden-cli"
+        "mole"
       ] ++ cfg.extraBrews;
 
       casks = [
