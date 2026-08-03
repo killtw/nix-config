@@ -61,33 +61,43 @@ in
         colors = {
           draw_bold_text_with_bright_colors = false;
           primary = {
-            background = "#26292c";
-            foreground = "#cfd2d0";
+            background = "#2E3440";
+            foreground = "#D8DEE9";
           };
-          cursor = {
-            text = "#26292c";
-            cursor = "#cfd2d0";
-          };
+          # cursor = {
+          #   text = "#1d1f21";
+          #   cursor = "#ffffff";
+          # };
           normal = {
-            black = "#000000";
-            red = "#d77b79";
-            green = "#c1c67a";
-            yellow = "#f3cf86";
-            blue = "#92b1c9";
-            magenta = "#c0a6c7";
-            cyan = "#9ac8c3";
-            white = "#fffefe";
+            black   = "#3B4252";
+            red     = "#BF616A";
+            green   = "#A3BE8C";
+            yellow  = "#EBCB8B";
+            blue    = "#81A1C1";
+            magenta = "#B48EAD";
+            cyan    = "#88C0D0";
+            white   = "#E5E9F0";
           };
-          search = {
-            matches = {
-              foreground = "#000000";
-              background = "#ffffff";
-            };
-            focused_match = {
-              foreground = "#ffffff";
-              background = "#9F7AF5";
-            };
+          bright = {
+            black   = "#4C566A";
+            red     = "#BF616A";
+            green   = "#A3BE8C";
+            yellow  = "#EBCB8B";
+            blue    = "#81A1C1";
+            magenta = "#B48EAD";
+            cyan    = "#8FBCBB";
+            white   = "#ECEFF4";
           };
+          # search = {
+          #   matches = {
+          #     foreground = "#000000";
+          #     background = "#ffffff";
+          #   };
+          #   focused_match = {
+          #     foreground = "#ffffff";
+          #     background = "#9F7AF5";
+          #   };
+          # };
         };
 
         keyboard.bindings = [
