@@ -1,11 +1,19 @@
 # Tmux terminal multiplexer module with namespace support
-{ lib, pkgs, config, namespace, ... }:
+{ lib, pkgs, config, namespace, darwinConfig ? null, ... }:
 
 with lib;
 with lib.${namespace};
 
 let
   cfg = config.${namespace}.programs.terminal.herdr;
+  homebrewPrefix =
+    if darwinConfig != null then
+      darwinConfig.homebrew.prefix
+    else if pkgs.stdenv.hostPlatform.isAarch64 then
+      "/opt/homebrew"
+    else
+      "/usr/local";
+  herdrHomebrewBin = "${homebrewPrefix}/bin/herdr";
 in
 {
   options.${namespace}.programs.terminal.herdr = mkTerminalOptions "Herdr";
@@ -16,12 +24,24 @@ in
 
     programs.herdr = {
       enable = true;
-      package = mkPackageWithFallback cfg pkgs.herdr;
+      package = null;
 
       settings = {
         onboarding = false;
 
         theme.name = "terminal";
+
+        ui = {
+          toast = {
+            delivery = "terminal";
+            clipboard.enabled = false;
+          };
+          sound.enabled = true;
+        };
+
+        experimental = {
+          kitty_graphics = true;
+        };
 
         keys = {
           prefix = "ctrl+b";
@@ -48,5 +68,15 @@ in
         };
       };
     };
+
+    # Home Manager uses the bare `herdr` command when package = null, but
+    # activation does not necessarily include Homebrew's bin directory.
+    xdg.configFile."herdr/config.toml".onChange = mkForce ''
+      if [ -x "${herdrHomebrewBin}" ]; then
+        "${herdrHomebrewBin}" server reload-config || true
+      else
+        echo "warning: Homebrew Herdr executable not found at ${herdrHomebrewBin}; skipping config reload" >&2
+      fi
+    '';
   };
 }
