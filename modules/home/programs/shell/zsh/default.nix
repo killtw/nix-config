@@ -53,6 +53,13 @@ in
         extended = true;
       };
 
+      # Keep user-local CLI shims available to login shells.  Homebrew itself
+      # is configured system-wide by nix-homebrew, so do not source its mutable
+      # shellenv snippet here.
+      profileExtra = ''
+        export PATH="$HOME/.local/lib/bin:$HOME/.local/bin:$PATH"
+      '';
+
       initContent = ''
         export XDG_CACHE_HOME=~/.cache
         export PATH=./vendor/bin:~/bin:$HOME/.local/lib/bin:$HOME/.cache/.bun/bin:$PATH

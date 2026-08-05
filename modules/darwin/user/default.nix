@@ -18,7 +18,11 @@ in
   config = {
     networking.hostName = cfg.hostname;
     networking.computerName = cfg.hostname;
-    system.defaults.smb.NetBIOSName = cfg.hostname;
+
+    # Do not manage NetBIOSName via `system.defaults.smb`: on macOS 26.5 the
+    # generated root-level `defaults write` can block indefinitely in cfprefsd.
+    # hostName and computerName remain declaratively managed above.
+    # system.defaults.smb.NetBIOSName = cfg.hostname;
 
     users.users.${cfg.name} = {
       uid = mkIf (cfg.uid != null) cfg.uid;
