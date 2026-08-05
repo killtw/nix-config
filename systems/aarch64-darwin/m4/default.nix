@@ -27,7 +27,12 @@
     suites = {
       common.enable = true;
       communication.enable = true;
-      development.enable = true;
+      development = {
+        enable = true;
+        extraBrews = [
+          "pi-coding-agent"
+        ];
+      };
       gaming.enable = true;
       media.enable = true;
       office.enable = true;
