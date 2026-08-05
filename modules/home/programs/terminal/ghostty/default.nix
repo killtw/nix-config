@@ -65,6 +65,10 @@ in
           "cmd+shift+KeyD=text:\\x02-"
           "cmd+shift+d=unbind"
 
+          # zoom active pane: cmd+shift+enter
+          "cmd+shift+enter=text:\\x02z"
+
+          # toggle sidebar
           "cmd+KeyS=text:\\x02b"
           "cmd+s=unbind"
 
