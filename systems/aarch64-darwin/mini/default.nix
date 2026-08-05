@@ -28,8 +28,8 @@
       common.enable = true;
       development = {
         enable = true;
-        extraBrews = [
-          "gstreamer"
+        extraCasks = [
+          "utm"
         ];
         excludeModules = [
           "lens"
