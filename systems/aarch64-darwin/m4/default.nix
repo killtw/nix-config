@@ -30,7 +30,7 @@
       development = {
         enable = true;
         extraBrews = [
-          "pi-coding-agent"
+          "can1357/tap/omp"
         ];
       };
       gaming.enable = true;
