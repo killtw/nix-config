@@ -63,16 +63,6 @@ in
               description = "open file viewer in tab";
             }
             {
-              key = "prefix+shift+m";
-              type = "plugin_action";
-              command = "mirror.start";
-            }
-            {
-              key = "prefix+shift+c";           # native new_workspace = prefix+shift+n
-              type = "plugin_action";
-              command = "mirror.remote-new-workspace";
-            }
-            {
               key = "cmd+r";
               type = "plugin_action";
               command = "persiyanov.reviewr.toggle";
@@ -91,17 +81,6 @@ in
         echo "warning: Homebrew Herdr executable not found at ${herdrHomebrewBin}; skipping config reload" >&2
       fi
     '';
-
-    xdg.configFile."herdr-mirror/hosts.toml" = {
-      source = tomlFormat.generate "herdr-mirror-hosts.toml" {
-        hosts = {
-          mini = {
-            target = "mini";
-            remote_bin = "/opt/homebrew/bin/herdr";
-          };
-        };
-      };
-    };
 
     xdg.configFile."herdr/plugins/config/persiyanov.reviewr/config.toml" = {
       source = tomlFormat.generate "herdr-reviewer-config.toml" {
