@@ -10,6 +10,7 @@ let
   # Available development applications
   availableModules = [
     "tableplus"
+    "terraform"
     "lens"
   ];
 in
@@ -21,8 +22,8 @@ in
     # Configure system packages
     environment.systemPackages = with pkgs; [
       # Development packages can be added here
+      bun
       devbox
-      terraform
     ] ++ cfg.extraPackages;
 
     # Configure Homebrew
