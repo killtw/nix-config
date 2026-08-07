@@ -33,7 +33,7 @@ in
         theme.name = "terminal";
 
         ui = {
-          toast.delivery = "herdr";
+          toast.delivery = "terminal";
           sound.enabled = true;
         };
 
