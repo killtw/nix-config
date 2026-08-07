@@ -9,6 +9,7 @@ let
 
   # Available common modules
   availableModules = [
+    "bun"
     "git"
     "zsh"
     "bat"
@@ -30,6 +31,9 @@ in
     # Enable common modules with default settings
     ${namespace}.programs = {
       development = {
+        bun = mkIf (elem "bun" (subtractLists cfg.excludeModules cfg.modules)) {
+          enable = true;
+        };
         git = mkIf (elem "git" (subtractLists cfg.excludeModules cfg.modules)) {
           enable = true;
         };
