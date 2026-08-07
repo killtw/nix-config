@@ -41,6 +41,7 @@ in
         "arc"
         "chatgpt"
         "codex"
+        "syntax-highlight"
         "visual-studio-code"
       ] ++ (if elem "raycast" (subtractLists cfg.excludeModules cfg.modules) then [
         "raycast"
