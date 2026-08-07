@@ -71,6 +71,19 @@ in
             location = "~/Desktop";
             type = "png";
           };
+
+          "com.apple.desktopservices" = {
+            # Avoid creating .DS_Store files on network or USB volumes
+            DSDontWriteNetworkStores = true;
+            DSDontWriteUSBStores = true;
+          };
+
+          "com.apple.AppleMultitouchTrackpad" = {
+            TrackpadThreeFingerDrag = true;
+          };
+          "com.apple.driver.AppleBluetoothMultitouch.trackpad" = {
+            TrackpadThreeFingerDrag = true;
+          };
         };
       };
     };
