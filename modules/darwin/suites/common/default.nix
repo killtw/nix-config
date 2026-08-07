@@ -23,6 +23,7 @@ in
       # System packages based on enabled applications
       git
       obsidian
+      ripgrep
       wget
     ] ++ cfg.extraPackages;
 
