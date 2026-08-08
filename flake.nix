@@ -14,7 +14,6 @@
 
     # Development tools
     devbox.url = "github:jetify-com/devbox";
-    opencode.url = "github:anomalyco/opencode";
 
     # Input follows
     snowfall-lib.inputs.nixpkgs.follows = "nixpkgs";
