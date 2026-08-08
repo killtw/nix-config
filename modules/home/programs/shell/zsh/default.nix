@@ -52,6 +52,24 @@ in
         expireDuplicatesFirst = true;
         extended = true;
       };
+      fastSyntaxHighlighting.enable = true;
+
+      plugins = [
+        {
+          name = "fzf-tab";
+          src = pkgs.zsh-fzf-tab;
+          file = "share/fzf-tab/fzf-tab.plugin.zsh";
+        }
+        {
+          name = "history-search-multi-word";
+          src = pkgs.zsh-history-search-multi-word;
+          file = "share/zsh/zsh-history-search-multi-word/history-search-multi-word.plugin.zsh";
+        }
+      ];
+      shellAliases = cfg.aliases // {
+        x = "composer";
+        art = "php artisan";
+      };
 
       # Keep user-local CLI shims available to login shells.  Homebrew itself
       # is configured system-wide by nix-homebrew, so do not source its mutable
@@ -60,80 +78,47 @@ in
         export PATH="$HOME/.local/lib/bin:$HOME/.local/bin:$PATH"
       '';
 
-      initContent = ''
-        export XDG_CACHE_HOME=~/.cache
-        export PATH=./vendor/bin:~/bin:$HOME/.local/lib/bin:$HOME/.cache/.bun/bin:$PATH
+      initContent = mkMerge [
+        (mkOrder 530 ''
+          fpath+=("${pkgs.zsh-completions}/share/zsh/site-functions")
+        '')
+        ''
+          export XDG_CACHE_HOME=~/.cache
+          export PATH=./vendor/bin:~/bin:$HOME/.local/lib/bin:$HOME/.cache/.bun/bin:$PATH
 
-        setopt auto_cd multios prompt_subst promptsubst auto_pushd pushd_ignore_dups pushdminus
-        autoload -Uz colors && colors
-        autoload -Uz select-word-style && select-word-style shell
-        autoload -Uz url-quote-magic
-        zle -N self-insert url-quote-magic
+          setopt auto_cd multios prompt_subst promptsubst auto_pushd pushd_ignore_dups pushdminus completealiases
+          autoload -Uz colors && colors
+          autoload -Uz select-word-style && select-word-style shell
+          autoload -Uz url-quote-magic
+          zle -N self-insert url-quote-magic
 
-        zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+          zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 
-        ### Load Zinit
-        ZINIT_HOME="''${XDG_DATA_HOME:-''${HOME}/.local/share}/zinit/zinit.git"
-        if [[ ! -f $ZINIT_HOME/zinit.zsh ]]; then
-            command mkdir -p "$(dirname $ZINIT_HOME)"
-            command git clone --depth=1 https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
-        fi
+          # PHP
+          function tinker() {
+              if [ -e "artisan" ] ; then
+                  if [ -z "$1" ] ; then
+                      while true; do php artisan tinker; done
+                  else
+                      php artisan tinker --execute="dd($1);"
+                  fi
+              fi
+              [ -e "Rakefile" ] && bundle exec rails c
+          }
 
-        source "''${ZINIT_HOME}/zinit.zsh"
-        autoload -Uz _zinit
-        (( ''${+_comps} )) && _comps[zinit]=_zinit
-        ### Zinit loaded
+          function migrate() {
+            [ -e "artisan" ] && php artisan migrate "$@"
+            [ -e "Rakefile" ] && bundle exec rake db:migrate "$@"
+          }
 
-        zi lucid for \
-            zdharma-continuum/zinit-annex-bin-gem-node \
-            OMZL::completion.zsh \
-            OMZL::history.zsh \
-            OMZL::key-bindings.zsh
+          function rollback() {
+            [ -e "artisan" ] && php artisan migrate:rollback "$@"
+            [ -e "Rakefile" ] && bundle exec rake db:rollback "$@"
+          }
 
-        zi wait lucid for \
-            Aloxaf/fzf-tab
-
-        zi wait"3" lucid for \
-            has"colima" \
-                as"null" id-as"nerdctl" atclone"colima nerdctl install" atpull"%atclone" zdharma-continuum/null \
-            has"kubectl" \
-                OMZP::kubectl \
-                as"program" from"gh" pick"(kubectx|kubens)" ahmetb/kubectx
-
-        zi wait lucid for \
-            atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
-                zdharma-continuum/fast-syntax-highlighting \
-                zdharma-continuum/history-search-multi-word \
-            blockf atpull"zinit creinstall -q ." \
-                zsh-users/zsh-completions
-
-        # PHP
-        alias -- x="composer"
-        alias -- art="php artisan"
-
-        function tinker() {
-            if [ -e "artisan" ] ; then
-                if [ -z "$1" ] ; then
-                    while true; do php artisan tinker; done
-                else
-                    php artisan tinker --execute="dd($1);"
-                fi
-            fi
-            [ -e "Rakefile" ] && bundle exec rails c
-        }
-
-        function migrate() {
-          [ -e "artisan" ] && php artisan migrate "$@"
-          [ -e "Rakefile" ] && bundle exec rake db:migrate "$@"
-        }
-
-        function rollback() {
-          [ -e "artisan" ] && php artisan migrate:rollback "$@"
-          [ -e "Rakefile" ] && bundle exec rake db:rollback "$@"
-        }
-
-        eval "$(devbox global shellenv)"
-      '';
+          eval "$(devbox global shellenv)"
+        ''
+      ];
     } // cfg.extraConfig;
   };
 }
