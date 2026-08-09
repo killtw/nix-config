@@ -14,11 +14,13 @@
 
     # Development tools
     devbox.url = "github:jetify-com/devbox";
+    lazyvim.url = "github:pfassina/lazyvim-nix";
 
     # Input follows
     snowfall-lib.inputs.nixpkgs.follows = "nixpkgs";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    lazyvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs:
@@ -44,6 +46,8 @@
 
       # External modules configuration
       homes.modules = with inputs; [
+        lazyvim.homeManagerModules.default
+
         # External Home Manager modules can be added here
         # mac-app-util.homeManagerModules.default
       ];

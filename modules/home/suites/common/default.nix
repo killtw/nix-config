@@ -79,6 +79,10 @@ in
         tmux = mkIf (elem "tmux" (subtractLists cfg.excludeModules cfg.modules)) {
           enable = true;
         };
+
+        neovim = {
+          enable = true;
+        };
       };
     };
   };
