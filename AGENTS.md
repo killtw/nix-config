@@ -144,7 +144,7 @@ mkDarwinSuiteOptions "name" modules   # Darwin suites (with extraTaps/Brews/Cask
 │   └── home/              # User-level modules
 │       ├── programs/
 │       │   ├── cloud/     # colima, awscli, gcp, orbstack, podman
-│       │   ├── development/  # git, direnv, kubectl, helm, opencode
+│       │   ├── development/  # git, direnv, kubectl, helm
 │       │   ├── shell/     # zsh
 │       │   ├── system/    # bat, eza, fzf, starship, zoxide
 │       │   └── terminal/  # alacritty, tmux

@@ -256,7 +256,6 @@ ${namespace} = {
 │   │       ├── common/         # 基礎套件
 │   │       └── development/    # 開發套件
 │   └── 🍎 darwin/              # Darwin 系統模組
-│       ├── 📱 apps/            # 應用程式管理
 │       └── 🎁 suites/          # Darwin 套件組合
 │           ├── common/         # 基本應用程式
 │           ├── development/    # 開發工具
@@ -284,8 +283,6 @@ ${namespace} = {
 - 📖 [架構指南](docs/ARCHITECTURE_GUIDE.md) - 詳細的系統架構說明
 - 📘 [使用指南](docs/USER_GUIDE.md) - 完整的配置和使用教學
 - 📋 [快速參考](docs/QUICK_REFERENCE.md) - 常用命令和配置速查
-- 🛠️ [開發指南](docs/development/) - 模組開發和故障排除
-- 📊 [項目報告](docs/reports/) - 開發過程和測試報告
 
 ## 🛠️ 常用命令
 
