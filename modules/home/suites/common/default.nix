@@ -9,16 +9,10 @@ let
 
   # Available common modules
   availableModules = [
-    "git"
-    "zsh"
-    "bat"
-    "eza"
-    "fzf"
+    "alacritty"
     "ghostty"
     "herdr"
-    "zoxide"
-    "starship"
-    "alacritty"
+    "lazygit"
     "tmux"
   ];
 in
@@ -29,38 +23,17 @@ in
   config = mkIf cfg.enable {
     # Enable common modules with default settings
     ${namespace}.programs = {
-      development = {
-        git = mkIf (elem "git" (subtractLists cfg.excludeModules cfg.modules)) {
-          enable = true;
-        };
-      };
+      development.git.enable = true;
 
-      shell = {
-        zsh = mkIf (elem "zsh" (subtractLists cfg.excludeModules cfg.modules)) {
-          enable = true;
-        };
-      };
+      shell.zsh.enable = true;
 
       system = {
-        bat = mkIf (elem "bat" (subtractLists cfg.excludeModules cfg.modules)) {
-          enable = true;
-        };
-
-        eza = mkIf (elem "eza" (subtractLists cfg.excludeModules cfg.modules)) {
-          enable = true;
-        };
-
-        fzf = mkIf (elem "fzf" (subtractLists cfg.excludeModules cfg.modules)) {
-          enable = true;
-        };
-
-        zoxide = mkIf (elem "zoxide" (subtractLists cfg.excludeModules cfg.modules)) {
-          enable = true;
-        };
-
-        starship = mkIf (elem "starship" (subtractLists cfg.excludeModules cfg.modules)) {
-          enable = true;
-        };
+        bat.enable = true;
+        eza.enable = true;
+        fzf.enable = true;
+        neovim.enable = true;
+        starship.enable = true;
+        zoxide.enable = true;
       };
 
       terminal = {
@@ -76,11 +49,11 @@ in
           enable = true;
         };
 
-        tmux = mkIf (elem "tmux" (subtractLists cfg.excludeModules cfg.modules)) {
+        lazygit = mkIf (elem "lazygit" (subtractLists cfg.excludeModules cfg.modules)) {
           enable = true;
         };
 
-        neovim = {
+        tmux = mkIf (elem "tmux" (subtractLists cfg.excludeModules cfg.modules)) {
           enable = true;
         };
       };

@@ -76,7 +76,7 @@ in
       HOMEBREW_NO_ANALYTICS = "1";
       HOMEBREW_NO_AUTO_UPDATE = "1";
       HOMEBREW_CURL_PATH = "${homebrewCurl}";
-      EDITOR = "vim";
+      EDITOR = "nvim";
     };
   };
 }
