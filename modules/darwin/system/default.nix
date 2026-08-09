@@ -43,7 +43,7 @@ in
           "com.apple.swipescrolldirection" = true;  # enable natural scrolling(default to true)
           "com.apple.sound.beep.feedback" = 0;  # disable beep sound when pressing volume up/down key
           AppleKeyboardUIMode = 3;  # Mode 3 enables full keyboard control.
-          ApplePressAndHoldEnabled = true;  # enable press and hold
+          ApplePressAndHoldEnabled = false;  # enable press and hold
 
           # If you press and hold certain keyboard keys when in a text area, the key's character begins to repeat.
           # This is very useful for vim users, they use `hjkl` to move cursor.

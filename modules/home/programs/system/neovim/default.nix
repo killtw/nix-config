@@ -1,4 +1,4 @@
-{ config, lib, namespace, pkgs, ... }:
+{ config, lib, namespace, pkgs, inputs, ... }:
 
 with lib;
 with lib.${namespace};
@@ -12,7 +12,27 @@ in
   config = mkIf cfg.enable {
     assertions = mkAppAssertions "Neovim" cfg;
 
-    programs.lazyvim.enable = true;
+    programs.neovim.enable = true;
+    programs.lazyvim = {
+      enable = true;
+
+      extraPackages = with pkgs; [
+        nixd       # Nix LSP
+        alejandra  # Nix formatter
+      ];
+
+      plugins = {
+        colorscheme = inputs.lazyvim.lib.lazyConfig [
+        {
+          plugin = "gbprod/nord.nvim";
+        }
+        {
+          plugin = "LazyVim/LazyVim";
+          opts = { colorscheme = "nord"; };
+        }
+        ];
+      };
+    };
 
     programs.zsh.shellAliases = mkIf config.programs.zsh.enable (cfg.aliases // {
       v = "nvim";
