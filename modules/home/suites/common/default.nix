@@ -14,6 +14,7 @@ let
     "herdr"
     "lazygit"
     "tmux"
+    "yazi"
   ];
 in
 {
@@ -54,6 +55,10 @@ in
         };
 
         tmux = mkIf (elem "tmux" (subtractLists cfg.excludeModules cfg.modules)) {
+          enable = true;
+        };
+
+        yazi = mkIf (elem "yazi" (subtractLists cfg.excludeModules cfg.modules)) {
           enable = true;
         };
       };
