@@ -37,9 +37,9 @@ in
           sound.enabled = true;
         };
 
-        experimental = {
-          kitty_graphics = true;
-        };
+        experimental.kitty_graphics = true;
+
+        session.resume_agents_on_restore = true;
 
         keys = {
           prefix = "ctrl+b";
@@ -52,20 +52,25 @@ in
           command = [
             {
               key = "prefix+f";
-              type = "plugin_action";
-              command = "herdr-file-viewer.open-file-viewer";
-              description = "open file viewer in split";
-            }
-            {
-              key = "prefix+shift+f";
-              type = "plugin_action";
-              command = "herdr-file-viewer.open-file-viewer-tab";
-              description = "open file viewer in tab";
+              type = "popup";
+              command = "yazi";
+              description = "open yazi in popup";
             }
             {
               key = "cmd+r";
-              type = "plugin_action";
-              command = "persiyanov.reviewr.toggle";
+              type = "popup";
+              command = "lazygit";
+              description = "open lazygit in popup";
+              width = "80%";
+              height = "80%";
+            }
+            {
+              key = "cmd+shift+t";
+              type = "popup";
+              command = "exec \"zsh\"";
+              description = "open scratch terminal in popup";
+              width = "80%";
+              height = "80%";
             }
           ];
         };
