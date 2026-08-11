@@ -24,7 +24,7 @@
     };
   };
 
-  home.stateVersion = "24.05";
+  home.stateVersion = "26.11";
 }
 ```
 
@@ -50,7 +50,7 @@
     };
   };
 
-  home.stateVersion = "24.05";
+  home.stateVersion = "26.11";
 }
 ```
 
@@ -175,7 +175,7 @@ ${namespace}.programs.terminal.tmux = {
     user.enable = true;
   };
 
-  home.stateVersion = "24.05";
+  home.stateVersion = "26.11";
 }
 ```
 
@@ -214,7 +214,7 @@ ${namespace}.programs.terminal.tmux = {
     };
   };
 
-  home.stateVersion = "24.05";
+  home.stateVersion = "26.11";
 }
 ```
 
@@ -262,7 +262,7 @@ ${namespace}.programs.terminal.tmux = {
     };
   };
 
-  home.stateVersion = "24.05";
+  home.stateVersion = "26.11";
 }
 ```
 
