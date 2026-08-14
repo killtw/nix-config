@@ -13,6 +13,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    home-manager.backupFileExtension = "hm-backup";
+
     # Use this instead of services.nix-daemon.enable if you
     # don't wan't the daemon service to be managed for you.
     # nix.useDaemon = true;
