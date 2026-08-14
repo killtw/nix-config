@@ -39,7 +39,7 @@ in
 
         experimental.kitty_graphics = true;
 
-        session.resume_agents_on_restore = true;
+        session.resume_agents_on_restore = false;
 
         keys = {
           prefix = "ctrl+b";
@@ -68,7 +68,7 @@ in
               key = "cmd+shift+t";
               type = "popup";
               command = "exec \"zsh\"";
-              description = "open scratch terminal in popup";
+              description = "open scratch terminal in pop";
               width = "80%";
               height = "80%";
             }

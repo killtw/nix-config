@@ -94,6 +94,10 @@ in
 
           zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 
+          # autocompletion using arrow keys (based on history)
+          bindkey '\e[A' history-search-backward
+          bindkey '\e[B' history-search-forward
+
           # PHP
           function tinker() {
               if [ -e "artisan" ] ; then
