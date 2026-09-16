@@ -9,6 +9,7 @@ let
 
   # Available development modules
   availableModules = [
+    "mise"
     "kubectl"
     "helm"
     "awscli"
@@ -22,6 +23,10 @@ in
     # Enable development modules with default settings
     ${namespace}.programs = {
       development = {
+        mise = mkIf (elem "mise" (subtractLists cfg.excludeModules cfg.modules)) {
+          enable = true;
+        };
+
         kubectl = mkIf (elem "kubectl" (subtractLists cfg.excludeModules cfg.modules)) {
           enable = true;
         };
