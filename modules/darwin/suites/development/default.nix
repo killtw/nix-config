@@ -9,9 +9,6 @@ let
 
   # Available development applications
   availableModules = [
-    "tableplus"
-    "terraform"
-    "lens"
   ];
 in
 {
@@ -34,14 +31,11 @@ in
 
       brews = [
         "gh"
-        "herdr"
       ] ++ cfg.extraBrews;
 
-      casks = [] ++ (if elem "tableplus" (subtractLists cfg.excludeModules cfg.modules) then [
-        "tableplus"
-      ] else []) ++ (if elem "lens" (subtractLists cfg.excludeModules cfg.modules) then [
-        "lens"
-      ] else []) ++ cfg.extraCasks;
+      casks = [
+        "dbx"
+      ] ++ cfg.extraCasks;
 
       masApps = {} // cfg.extraMasApps;
     };

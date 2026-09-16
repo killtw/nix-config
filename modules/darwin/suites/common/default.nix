@@ -10,7 +10,6 @@ let
   # Available common applications
   availableModules = [
     "bitwarden-cli"
-    "raycast"
   ];
 in
 {
@@ -21,10 +20,7 @@ in
     # Configure system packages
     environment.systemPackages = with pkgs; [
       # System packages based on enabled applications
-      git
       obsidian
-      ripgrep
-      wget
     ] ++ cfg.extraPackages;
 
     # Configure Homebrew
@@ -42,15 +38,11 @@ in
         "arc"
         "chatgpt"
         "codex"
-        "syntax-highlight"
         "visual-studio-code"
-      ] ++ (if elem "raycast" (subtractLists cfg.excludeModules cfg.modules) then [
-        "raycast"
-      ] else []) ++ cfg.extraCasks;
+      ] ++ cfg.extraCasks;
 
       masApps = {
         Bitwarden = 1352778147;
-        "The Unarchiver" = 425424353;
         "Obsidian Web Clipper" = 6720708363;
       } // cfg.extraMasApps;
     };

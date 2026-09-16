@@ -13,8 +13,6 @@ let
     "betterdisplay"
     "popclip"
     "surge"
-    "thaw"
-    "rustdesk"
   ];
 in
 {
@@ -27,6 +25,9 @@ in
     # Configure system packages
     environment.systemPackages = with pkgs; [
       # System packages can be added here
+      git
+      ripgrep
+      wget
     ] ++ cfg.extraPackages;
 
     # Configure Homebrew
@@ -35,9 +36,14 @@ in
 
       taps = [] ++ cfg.extraTaps;
 
-      brews = [] ++ cfg.extraBrews;
+      brews = [
+        "herdr"
+        "mas"
+      ] ++ cfg.extraBrews;
 
-      casks = [] ++ (if elem "airbuddy" (subtractLists cfg.excludeModules cfg.modules) then [
+      casks = [
+        "syntax-highlight"
+      ] ++ (if elem "airbuddy" (subtractLists cfg.excludeModules cfg.modules) then [
         "airbuddy"
       ] else []) ++ (if elem "betterdisplay" (subtractLists cfg.excludeModules cfg.modules) then [
         "betterdisplay"
@@ -45,13 +51,11 @@ in
         "popclip"
       ] else []) ++ (if elem "surge" (subtractLists cfg.excludeModules cfg.modules) then [
         "surge"
-      ] else []) ++ (if elem "thaw" (subtractLists cfg.excludeModules cfg.modules) then [
-        "thaw"
-      ] else []) ++ (if elem "rustdesk" (subtractLists cfg.excludeModules cfg.modules) then [
-        "rustdesk"
       ] else []) ++ cfg.extraCasks;
 
-      masApps = {} // cfg.extraMasApps;
+      masApps = {
+        "The Unarchiver" = 425424353;
+      } // cfg.extraMasApps;
     };
   };
 }
