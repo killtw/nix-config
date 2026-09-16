@@ -9,6 +9,7 @@ let
 
   # Available common modules
   availableModules = [
+    "direnv"
     "alacritty"
     "ghostty"
     "herdr"
@@ -25,6 +26,9 @@ in
     # Enable common modules with default settings
     ${namespace}.programs = {
       development.git.enable = true;
+      development.direnv = mkIf (elem "direnv" (subtractLists cfg.excludeModules cfg.modules)) {
+        enable = true;
+      };
 
       shell.zsh.enable = true;
 
