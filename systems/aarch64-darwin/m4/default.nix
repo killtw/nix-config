@@ -27,7 +27,6 @@
       development = {
         enable = true;
         extraBrews = [
-          "can1357/tap/omp"
           "pi-coding-agent"
         ];
       };
