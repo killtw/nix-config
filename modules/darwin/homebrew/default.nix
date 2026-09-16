@@ -54,7 +54,7 @@ in
   config = mkIf cfg.enable {
     nix-homebrew = {
       enable = true;
-      enableRosetta = true;
+      enableRosetta = false;
       user = cfg.username;
 
       mutableTaps = true;
