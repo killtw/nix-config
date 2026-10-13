@@ -38,7 +38,9 @@ in
         "arc"
         "chatgpt"
         "codex"
-        "visual-studio-code"
+        "codexbar"
+        "vorssaint"
+        "zed"
       ] ++ cfg.extraCasks;
 
       masApps = {
