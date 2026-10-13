@@ -85,6 +85,8 @@ in
         ''
           export XDG_CACHE_HOME=~/.cache
           export PATH=./vendor/bin:~/bin:$HOME/.local/lib/bin:$HOME/.cache/.bun/bin:$PATH
+          # Hermes Agent command
+          case ":$PATH:" in *":$HOME/.local/bin:"*) ;; *) export PATH="$HOME/.local/bin:$PATH" ;; esac
 
           setopt auto_cd multios prompt_subst promptsubst auto_pushd pushd_ignore_dups pushdminus completealiases
           autoload -Uz colors && colors
