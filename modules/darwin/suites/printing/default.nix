@@ -9,7 +9,7 @@ let
 
   # Available printing applications
   availableModules = [
-    "orcaslicer"
+    "bambu-studio"
     "thumbhost3mf"
   ];
 in
@@ -31,10 +31,10 @@ in
 
       brews = [] ++ cfg.extraBrews;
 
-      casks = [] ++ (if elem "thumbhost3mf" (subtractLists cfg.excludeModules cfg.modules) then [
+      casks = [] ++ (if elem "bambu-studio" (subtractLists cfg.excludeModules cfg.modules) then [
+        "bambu-studio"
+      ] else []) ++ (if elem "thumbhost3mf" (subtractLists cfg.excludeModules cfg.modules) then [
         "thumbhost3mf"
-      ] else []) ++ (if elem "orcaslicer" (subtractLists cfg.excludeModules cfg.modules) then [
-        "orcaslicer"
       ] else []) ++ cfg.extraCasks;
 
       masApps = {} // cfg.extraMasApps;
