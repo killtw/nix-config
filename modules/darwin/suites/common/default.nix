@@ -39,7 +39,8 @@ in
         "arc"
         "chatgpt"
         "codex"
-        "codexbar"
+        "grok-bot"
+        "magpie"
         "vorssaint"
         "zed"
       ] ++ cfg.extraCasks;
