@@ -40,8 +40,11 @@ in
         "chatgpt"
         "codex"
         "grok-bot"
+        "saffsanity/sill/sill"
         "magpie"
+        "t3-code"
         "vorssaint"
+        "yetanotherbrowser/tap/yab"
         "zed"
       ] ++ cfg.extraCasks;
 
