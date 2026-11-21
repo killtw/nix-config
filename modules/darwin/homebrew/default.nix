@@ -28,7 +28,7 @@ let
       case "$arg" in
         -A|--user-agent)
           skip_user_agent_value=1
-          homebrew_args+=(-d-user-agent "$browser_user_agent")
+          homebrew_args+=(--user-agent "$browser_user_agent")
           ;;
         -A?*)
           homebrew_args+=(--user-agent "$browser_user_agent")
