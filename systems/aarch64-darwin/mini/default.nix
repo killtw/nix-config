@@ -38,7 +38,6 @@
         excludeModules = [
           "airbuddy"
           "betterdisplay"
-          "thaw"
         ];
       };
     };
