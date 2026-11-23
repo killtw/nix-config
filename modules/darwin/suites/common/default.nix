@@ -39,17 +39,16 @@ in
         "chatgpt"
         "codex"
         "grok-bot"
+        "driceroland/tap/search"
         "saffsanity/sill/sill"
         "magpie"
         "t3-code"
         "vorssaint"
-        "yetanotherbrowser/tap/yab"
         "zed"
       ] ++ cfg.extraCasks;
 
       masApps = {
         Bitwarden = 1352778147;
-        "Obsidian Web Clipper" = 6720708363;
       } // cfg.extraMasApps;
     };
   };
