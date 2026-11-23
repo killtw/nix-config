@@ -27,12 +27,7 @@
       development.enable = true;
       media.enable = true;
       office.enable = true;
-      system = {
-        enable = true;
-        extraCasks = [
-          "itsycal"
-        ];
-      };
+      system.enable = true;
     };
 
     user = {

@@ -43,6 +43,7 @@ in
 
       casks = [
         "syntax-highlight"
+        "itsycal"
       ] ++ (if elem "airbuddy" (subtractLists cfg.excludeModules cfg.modules) then [
         "airbuddy"
       ] else []) ++ (if elem "betterdisplay" (subtractLists cfg.excludeModules cfg.modules) then [

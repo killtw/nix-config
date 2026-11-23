@@ -34,12 +34,7 @@
       media.enable = true;
       office.enable = true;
       printing.enable = true;
-      system = {
-        enable = true;
-        extraCasks = [
-          "itsycal"
-        ];
-      };
+      system.enable = true;
     };
 
     user = {
