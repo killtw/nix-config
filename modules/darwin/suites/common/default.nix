@@ -21,7 +21,6 @@ in
     environment.systemPackages = with pkgs; [
       # System packages based on enabled applications
       obsidian
-      killtw.autopip
     ] ++ cfg.extraPackages;
 
     # Configure Homebrew
