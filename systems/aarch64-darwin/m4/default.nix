@@ -22,7 +22,12 @@
   # Enable Snowfall modules
   ${namespace} = {
     suites = {
-      common.enable = true;
+      common = {
+        enable = true;
+        extraCasks = [
+          "magpie"
+        ];
+      };
       communication.enable = true;
       development = {
         enable = true;
